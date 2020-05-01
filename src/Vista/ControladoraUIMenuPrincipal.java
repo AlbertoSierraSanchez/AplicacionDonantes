@@ -3,8 +3,9 @@ package Vista;
 
 
 
-import java.sql.SQLException;
+import java.util.ResourceBundle;
 
+import Controlador.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,26 +21,35 @@ public class ControladoraUIMenuPrincipal {
 	   private Button InformeYEstad;
 	@FXML
 	   private Label tituloMnPrincipal;
+	@FXML
+	   private Main MnPrincipal;
 	
 	
-	public void initialize() throws SQLException{
+	public void setMnPrincipal(Main MnPrincipal) {
+        this.MnPrincipal = MnPrincipal;
+    }
+	public void initialize() {
 		
-		tituloMnPrincipal.setText("Bienvenido a mi App!");
 		
 	}
 	
-public void AbrirDonantes(ActionEvent action){
+	 public void AbrirDonantes(ActionEvent action){
 		System.out.println("Donante");
-		
-	}
+		this.MnPrincipal.mostrarVentanaSecundaria();
+}
 	
-public void AbrirDonaciones(ActionEvent action){
+	
+	 public void AbrirDonaciones(ActionEvent action){
 	System.out.println("Donaciones");
 	}
 	
-public void AbrirInformes(ActionEvent action){
+	 public void AbrirInformes(ActionEvent action){
 	System.out.println("Informes");
 }
+
+
+	
+
 	
 	
 }
