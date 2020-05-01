@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import Vista.ControladoraUIDonantes;
 import Vista.ControladoraUIMenuPrincipal;
+import Vista.ControladoraUINuevoDonante;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -19,7 +20,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stagePrincipal) throws Exception {
         Main.stagePrincipal = stagePrincipal;
-        mostrarVentanaPrincipal();
+        mostrarMenuPrincipal();
 
     }
 
@@ -31,7 +32,7 @@ public class Main extends Application {
     /*
      * cargamos la ventana principal
      */
-    public void mostrarVentanaPrincipal() {
+    public void mostrarMenuPrincipal() {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vista/UIMenuPrincipal.fxml"));
             rootPane=(AnchorPane) loader.load();
@@ -54,7 +55,7 @@ public class Main extends Application {
     /* Este método es llamado cuando se presiona el botón de la ventana principal
      * Lo llama el controlador de la vista principal
      */
-    public void mostrarVentanaSecundaria() {
+    public void mostrarMenuDonantes() {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vista/UIDonantes.fxml"));
             AnchorPane ventanaDos = (AnchorPane) loader.load();
@@ -76,6 +77,8 @@ public class Main extends Application {
         	System.out.println(e);
         }
     }
+    
+    
 }
 	
 	

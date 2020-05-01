@@ -3,7 +3,6 @@ package Vista;
 
 
 
-import java.util.ResourceBundle;
 
 import Controlador.Main;
 import javafx.event.ActionEvent;
@@ -35,7 +34,7 @@ public class ControladoraUIMenuPrincipal {
 	
 	 public void AbrirDonantes(ActionEvent action){
 		System.out.println("Donante");
-		this.MnPrincipal.mostrarVentanaSecundaria();
+		this.MnPrincipal.mostrarMenuDonantes();
 }
 	
 	

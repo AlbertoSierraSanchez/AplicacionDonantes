@@ -1,6 +1,11 @@
 package Vista;
 
+
+import java.sql.SQLException;
+
+import Controlador.Main;
 import Modelo.Donante;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -74,7 +79,13 @@ public class ControladoraUIDonantes {
 	   
 	   private Stage ventana;
 	   
-	   
+	   @FXML
+	   private Main MnPrincipal;
+	
+	
+	public void setMnPrincipal(Main MnPrincipal) {
+        this.MnPrincipal = MnPrincipal;
+    }
 	 
 	   
 	   public void setStagePrincipal(Stage ventana) {
@@ -86,11 +97,12 @@ public class ControladoraUIDonantes {
 			this.ventana.close();
 		}
 
-/*
+
 	   public void Filtrar(ActionEvent event) throws SQLException{
 		   
 	   }
 	   public void Nuevo(ActionEvent event) throws SQLException{
+		   System.out.println("eeeeeee");
 		   
 	   }
 	   public void Modificar(ActionEvent event) throws SQLException{
@@ -102,7 +114,7 @@ public class ControladoraUIDonantes {
 	   public void Volver(ActionEvent event) throws SQLException{
 		   
 	   }
-	*/
+	
 	
 	   
 	

@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Tabla" prefHeight="689.0" prefWidth="1257.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.ControladoraUIDonantes">
+<AnchorPane prefHeight="689.0" prefWidth="1257.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.ControladoraUIDonantes">
    <children>
-      <TableView layoutX="20.0" layoutY="119.0" prefHeight="415.0" prefWidth="1214.0">
+      <TableView fx:id="Tabla" layoutX="20.0" layoutY="119.0" prefHeight="415.0" prefWidth="1214.0">
         <columns>
           <TableColumn fx:id="ColNumero" prefWidth="37.0" text="Nº" />
           <TableColumn fx:id="ColIden" prefWidth="92.0" text="DNI/NIE" />
