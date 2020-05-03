@@ -2,9 +2,10 @@ package Controlador;
 
 import java.io.IOException;
 
+import Vista.ControladoraUIDonacion;
 import Vista.ControladoraUIDonantes;
+import Vista.ControladoraUIInformes;
 import Vista.ControladoraUIMenuPrincipal;
-import Vista.ControladoraUINuevoDonante;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -68,6 +69,52 @@ public class Main extends Application {
             ventana.setScene(scene);
 
             ControladoraUIDonantes controller2 = loader.getController();
+            controller2.setStagePrincipal(ventana);
+
+            ventana.show();
+
+        } catch (Exception e) {
+            //tratar la excepción
+        	System.out.println(e);
+        }
+    }
+    
+    public void mostrarMenuDonaciones() {
+        try {
+        	
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vista/UIDonacion.fxml"));
+            AnchorPane ventanaTres = (AnchorPane) loader.load();
+            /* Creamos la segunda ventana como otro stage */
+            Stage ventana3 = new Stage();
+            ventana3.setTitle("Administracion de Donaciones");
+            /* Le decimos a la ventana quién es la ventana original */
+            ventana3.initOwner(stagePrincipal);
+            Scene scene2 = new Scene(ventanaTres);
+            ventana3.setScene(scene2);
+            ControladoraUIDonacion controller3 = loader.getController();
+            controller3.setStagePrincipal(ventana3);
+
+            ventana3.show();
+
+        } catch (Exception e) {
+            //tratar la excepción
+        	System.out.println(e);
+        }
+    }
+    
+    public void mostrarMenuInformes() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vista/UIInformes.fxml"));
+            AnchorPane ventanaDos = (AnchorPane) loader.load();
+            /* Creamos la segunda ventana como otro stage */
+            Stage ventana = new Stage();
+            ventana.setTitle("Administracion de Donantes");
+            /* Le decimos a la ventana quién es la ventana original */
+            ventana.initOwner(stagePrincipal);
+            Scene scene = new Scene(ventanaDos);
+            ventana.setScene(scene);
+
+            ControladoraUIInformes controller2 = loader.getController();
             controller2.setStagePrincipal(ventana);
 
             ventana.show();

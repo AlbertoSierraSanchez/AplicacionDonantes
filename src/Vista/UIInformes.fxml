@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="595.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.ControladoraUIInformes">
+   <children>
+      <Button fx:id="N_totalDonat" layoutX="96.0" layoutY="107.0" mnemonicParsing="false" onAction="#NTotalDonantes" prefHeight="61.0" prefWidth="72.0" text="NºTotal" />
+      <Button fx:id="Excluidos" layoutX="168.0" layoutY="175.0" mnemonicParsing="false" onAction="#Excluidos" prefHeight="61.0" prefWidth="79.0" text="Excluidos" />
+      <Button fx:id="Aptos" layoutX="24.0" layoutY="175.0" mnemonicParsing="false" onAction="#Aptos" prefHeight="61.0" prefWidth="79.0" text="Aptos" />
+      <Label layoutX="62.0" layoutY="48.0" text="Donantes">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="375.0" layoutY="48.0" text="Donaciones">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="N_totalDonac" layoutX="404.0" layoutY="107.0" mnemonicParsing="false" onAction="#NTotalDonacion" prefHeight="61.0" prefWidth="72.0" text="NºTotal" />
+      <Button fx:id="R_Ult_Mes" layoutX="332.0" layoutY="175.0" mnemonicParsing="false" onAction="#UltimoMes" prefHeight="61.0" prefWidth="79.0" text="Realizadas en el último mes" wrapText="true" />
+      <Button fx:id="DxD" layoutX="476.0" layoutY="175.0" mnemonicParsing="false" onAction="#DonacionesPorDonante" prefHeight="61.0" prefWidth="89.0" text="Donaciones por Donante" wrapText="true" />
+      <Button fx:id="Buscar" layoutX="332.0" layoutY="354.0" mnemonicParsing="false" text="Buscar" />
+      <Label layoutX="219.0" layoutY="269.0" text="Formularios">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="154.0" layoutY="327.0" text="NºDonación" />
+      <TextField layoutX="233.0" layoutY="323.0" />
+      <Button fx:id="Volver" layoutX="521.0" layoutY="354.0" mnemonicParsing="false" onAction="#closeWindow" text="Volver" />
+   </children>
+</AnchorPane>

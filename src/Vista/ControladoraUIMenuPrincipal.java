@@ -39,11 +39,15 @@ public class ControladoraUIMenuPrincipal {
 	
 	
 	 public void AbrirDonaciones(ActionEvent action){
-	System.out.println("Donaciones");
+		 
+		System.out.println("Donaciones");
+		this.MnPrincipal.mostrarMenuDonaciones();
+	
 	}
 	
 	 public void AbrirInformes(ActionEvent action){
 	System.out.println("Informes");
+	this.MnPrincipal.mostrarMenuInformes();
 }
 
 
