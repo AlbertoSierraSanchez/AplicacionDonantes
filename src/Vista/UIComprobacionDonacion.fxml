@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.0" prefWidth="707.0" style="-fx-background-color: #00FFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.ControladoraUIComprobacionDonacion">
+   <children>
+      <CheckBox fx:id="CKN" layoutX="302.0" layoutY="48.0" mnemonicParsing="false" />
+      <Label layoutX="35.0" layoutY="43.0" prefHeight="27.0" prefWidth="100.0" text="Nº Donante">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="NID_txt" layoutX="141.0" layoutY="44.0" />
+      <Label layoutX="215.0" text="Comprobación del Donante">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="36.0" layoutY="128.0" prefHeight="371.0" prefWidth="631.0" style="-fx-background-color: green;">
+         <content>
+          <AnchorPane focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" prefHeight="1920.0" prefWidth="0.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="16.0" layoutY="407.0" prefHeight="57.0" prefWidth="528.0" text="12.- ¿Ha tomado alguna vez: PROSCAR, PROPECIA, ROACUTAN, ISOTREX, TIGASON, NEOTIGASON, AVODART, DUAGEN?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="537.0" text="1.-¿Su edad esta comprendida entre los 18 y los 65 años? ">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="41.0" prefHeight="27.0" prefWidth="536.0" text="2.-¿Se encuentra bien hoy?.................................................................................">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="15.0" layoutY="68.0" prefHeight="27.0" prefWidth="536.0" text="3.-¿Pesa más de 50 Kilos?.................................................................................">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb1" layoutX="551.0" layoutY="15.0" prefHeight="25.0" prefWidth="62.0" />
+                  <ChoiceBox fx:id="cb2" layoutX="551.0" layoutY="42.0" prefHeight="25.0" prefWidth="62.0" />
+                  <ChoiceBox fx:id="cb3" layoutX="551.0" layoutY="69.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="15.0" layoutY="95.0" prefHeight="27.0" prefWidth="536.0" text="4.-¿Es la primera vez que dona sangre? ...................................................................................">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb4" layoutX="551.0" layoutY="97.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="14.0" layoutY="122.0" prefHeight="27.0" prefWidth="536.0" text="5.- ¿Ha donado sangre o aféresis en los últimos 12 meses? ...............................................................">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb5" layoutX="551.0" layoutY="123.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="14.0" layoutY="149.0" prefHeight="27.0" prefWidth="536.0" text="6.-  ¿ Ha sido rechazado alguna vez como donante? ...............................">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb6" layoutX="551.0" layoutY="150.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="14.0" layoutY="179.0" prefHeight="58.0" prefWidth="493.0" text="7.-  ¿Convive en la actualidad o ha convivido en los últimos 4 meses con algún enfermo de SIDA o hepatitis? .............................." wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb7" layoutX="551.0" layoutY="196.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="15.0" layoutY="227.0" prefHeight="55.0" prefWidth="531.0" text="8.-   ¿Ha compartido en los últimos 4 meses maquinillas de afeitar o cepillos de dientes, aunque sea con familiares o amigos? ......" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb8" layoutX="551.0" layoutY="242.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="14.0" layoutY="279.0" prefHeight="58.0" prefWidth="520.0" text="9.- ¿Se ha vacunado en el último mes o le han puesto inmunoglobulinas en los últimos 12 meses?........................" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb9" layoutX="551.0" layoutY="296.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="14.0" layoutY="337.0" prefHeight="27.0" prefWidth="520.0" text="10.- ¿Le han puesto la vacuna de la rabia en el último año?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb10" layoutX="551.0" layoutY="338.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="16.0" layoutY="364.0" prefHeight="54.0" prefWidth="490.0" text="11.- ¿Se ha realizado algún tratamiento dental en los últimos 7 días?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb11" layoutX="551.0" layoutY="379.0" prefHeight="25.0" prefWidth="62.0" />
+                  <ChoiceBox fx:id="cb12" layoutX="551.0" layoutY="423.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="16.0" layoutY="454.0" prefHeight="59.0" prefWidth="528.0" text="13.- ¿Ha tenido fiebre (&gt;38º C), diarrea, o alguna otra infección en los últimos quince días? " wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb13" layoutX="551.0" layoutY="471.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label contentDisplay="TOP" layoutX="16.0" layoutY="503.0" prefHeight="90.0" prefWidth="528.0" text="14.- ¿Ha sido hospitalizado, operado de algo o le han realizado una endoscopia (gastroscopia, artroscopia, colonoscopia, rinoscopia) en los últimos cuatro meses?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb14" layoutX="551.0" layoutY="536.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="17.0" layoutY="588.0" prefHeight="0.0" prefWidth="528.0" text="15.-¿Ha sufrido alguna salpicadura con sangre o punción accidental con aguja en los últimos 4 meses?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb15" layoutX="551.0" layoutY="598.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="13.0" layoutY="619.0" prefHeight="56.0" prefWidth="528.0" text="16.- ¿Se ha hecho algún tatuaje, piercing, agujero en oreja, acupuntura en los últimos 4 meses?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb16" layoutX="551.0" layoutY="647.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="16.0" layoutY="687.0" prefHeight="56.0" prefWidth="517.0" text="17.- Si es mujer ¿Ha estado embarazada en los últimos seis meses? ¿Está todavía amamantando al niño?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb17" layoutX="551.0" layoutY="703.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="16.0" layoutY="736.0" prefHeight="56.0" prefWidth="517.0" text="18.- ¿Ha tenido algún episodio alérgico importante en el último año ? ¿Sufre de asma? " wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb18" layoutX="551.0" layoutY="752.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="16.0" layoutY="786.0" prefHeight="144.0" prefWidth="538.0" text="19.- ¿Ha padecido alguna enfermedad infecciosa grave: hepatitis, tuberculosis, fiebre de malta, toxoplasmosis, sífilis, gonorrea, babesiosis, paludismo o malaria, SIDA, fiebre reumática, mononucleosis infecciosa, osteomielitis, fiebre Q, Kala-Azar, HTLV-I/II, enfermedad de Chagas?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb19" layoutX="551.0" layoutY="846.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="16.0" layoutY="921.0" prefHeight="87.0" prefWidth="522.0" text="20.- ¿Ha tenido alguna enfermedad grave de cerebro, riñón, tiroides, pulmón, corazón (infarto, angina, arritmia), aparato digestivo, diabetes, cáncer, o problemas de coagulación?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb20" layoutX="551.0" layoutY="952.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="16.0" layoutY="1008.0" prefHeight="27.0" prefWidth="522.0" text="21.- ¿Ha tenido convulsiones no febriles, desmayos o epilepsia? " wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb21" layoutX="551.0" layoutY="1009.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="20.0" layoutY="1035.0" prefHeight="27.0" prefWidth="435.0" text="22.- ¿Le han transfundido sangre en alguna ocasión?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb22" layoutX="551.0" layoutY="1036.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="19.0" layoutY="1060.0" prefHeight="54.0" prefWidth="508.0" text="23.- ¿Ha utilizado anabolizantes para aumentar la musculatura alguna vez en su vida? " wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb23" layoutX="551.0" layoutY="1075.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="19.0" layoutY="1114.0" prefHeight="56.0" prefWidth="508.0" text="24.- ¿Ha sido tratado con hormonas de crecimiento?, ¿tiene antecedentes de trasplante de cornea o injerto de duramadre?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb24" layoutX="551.0" layoutY="1130.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="19.0" layoutY="1170.0" prefHeight="114.0" prefWidth="508.0" text="25.- ¿Ha residido en el Reino Unido más de un año acumulativo entre los años 1980 a 1996 inclusive? ¿Tiene antecedentes familiares de enfermedad de Creutzfeldt Jacob (enfermedad de las vacas locas)?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb25" layoutX="551.0" layoutY="1215.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="19.0" layoutY="1277.0" prefHeight="56.0" prefWidth="516.0" text="26.-¿Ha nacido Vd.,su madre o su abuela materna fuera de la UE?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb26" layoutX="551.0" layoutY="1293.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="19.0" layoutY="1333.0" prefHeight="27.0" prefWidth="516.0" text="27.-¿Ha viajado fuera de la UE en los últimos 6 meses? " wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb27" layoutX="551.0" layoutY="1334.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="16.0" layoutY="1360.0" prefHeight="58.0" prefWidth="516.0" text="28.-¿Ha residido en algún momento de su vida 6 o más meses fuera de la UE?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb28" layoutX="551.0" layoutY="1377.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="15.0" layoutY="1410.0" prefHeight="114.0" prefWidth="516.0" text="29.- ¿Va a realizar en las siguientes doce horas tras la donación alguna actividad laboral de riesgo? (Usar maquinaria pesada, pilotar, subir a un andamio, grúas, bucear, conducir autobuses, camiones&#133;)" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb29" layoutX="551.0" layoutY="1455.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="17.0" layoutY="1518.0" prefHeight="58.0" prefWidth="516.0" text="30.- En el último año, ¿Le han hecho alguna prueba o reconocimiento médico?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb30" layoutX="551.0" layoutY="1535.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="15.0" layoutY="1619.0" prefHeight="58.0" prefWidth="516.0" text="32.- ¿Ha entendido correctamente las preguntas formuladas en este cuestionario?." wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb31" layoutX="551.0" layoutY="1586.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="15.0" layoutY="1569.0" prefHeight="58.0" prefWidth="516.0" text="31.- ¿Toma alguna medicación incluida aspirina, ibuprofeno o derivados en los últimos cinco días?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb32" layoutX="551.0" layoutY="1636.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="14.0" layoutY="1677.0" prefHeight="85.0" prefWidth="516.0" text="33.-¿Padece o ha padecido alguna vez una enfermedad de transmisión sexual o transmisible por la sangre (SIDA, sífilis, gonorrea, clamidia&#133;)? " wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb33" layoutX="551.0" layoutY="1707.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="14.0" layoutY="1766.0" prefHeight="56.0" prefWidth="516.0" text="34.-¿Ha mantenido una relación sexual con una nueva pareja en los últimos 4 meses sin protección? " wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb34" layoutX="551.0" layoutY="1781.0" prefHeight="25.0" prefWidth="62.0" />
+                  <Label layoutX="14.0" layoutY="1822.0" prefHeight="56.0" prefWidth="516.0" text="35.-¿Ha consumido drogas ilegales alguna vez (heroína, cocaína, etc)?" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="cb35" layoutX="551.0" layoutY="1838.0" prefHeight="25.0" prefWidth="62.0" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <Button fx:id="ComprobarN" layoutX="190.0" layoutY="81.0" mnemonicParsing="false" onAction="#ComprobarN" text="Validar Número" />
+      <AnchorPane layoutX="-2.0" layoutY="499.0" prefHeight="159.0" prefWidth="722.0">
+         <children>
+            <Button fx:id="Continuar" layoutX="475.0" layoutY="87.0" mnemonicParsing="false" onAction="#Continuar" prefHeight="46.0" prefWidth="92.0" text="Continuar" />
+            <Button fx:id="Volver" layoutX="579.0" layoutY="87.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="46.0" prefWidth="92.0" text="Volver" />
+            <Button fx:id="ComprobarF" layoutX="541.0" layoutY="11.0" mnemonicParsing="false" onAction="#ComprobarF" prefHeight="25.0" prefWidth="118.0" text="Validar Formulario" />
+            <CheckBox fx:id="CKF" layoutX="513.0" layoutY="15.0" mnemonicParsing="false" />
+            <Button fx:id="Restablecer" layoutX="315.0" layoutY="13.0" mnemonicParsing="false" onAction="#Restablecer" prefHeight="46.0" prefWidth="92.0" text="Restablecer" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

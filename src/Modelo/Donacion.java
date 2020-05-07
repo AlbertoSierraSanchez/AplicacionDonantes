@@ -10,21 +10,22 @@ public class Donacion {
 	private String TA_dias;
 	private String HB_cap;
 	private String HB__ven;
-	
+	private int Volumen;
 	
 	
 	
 	public Donacion(int num_donacion, String fecha, String tipo, String pulso, String tA_sist, String tA_dias,
-			String hB_cap, String hB__ven) {
+			String hB_cap, String hB__ven,int Volumen) {
 		super();
-		Num_donacion = num_donacion;
-		Fecha = fecha;
-		Tipo = tipo;
-		Pulso = pulso;
-		TA_sist = tA_sist;
-		TA_dias = tA_dias;
-		HB_cap = hB_cap;
-		HB__ven = hB__ven;
+		this.Num_donacion = num_donacion;
+		this.Fecha = fecha;
+		this.Tipo = tipo;
+		this.Pulso = pulso;
+		this.TA_sist = tA_sist;
+		this.TA_dias = tA_dias;
+		this.HB_cap = hB_cap;
+		this.HB__ven = hB__ven;
+		this.Volumen = Volumen;
 	}
 	
 	
@@ -141,6 +142,28 @@ public class Donacion {
 
 	public void setHB__ven(String hB__ven) {
 		HB__ven = hB__ven;
+	}
+
+
+
+
+
+
+
+
+	public int getVolumen() {
+		return Volumen;
+	}
+
+
+
+
+
+
+
+
+	public void setVolumen(int volumen) {
+		Volumen = volumen;
 	}
 	
 	

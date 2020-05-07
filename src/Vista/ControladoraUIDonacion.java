@@ -80,6 +80,8 @@ public class ControladoraUIDonacion {
 	   
 	   public void NuevoD(ActionEvent event) throws SQLException{
 		   
+		   this.MnPrincipal.mostrarMenuComprobacionDonacion();
+		   
 	   }
 	   public void EliminarD(ActionEvent event) throws SQLException{
 		   

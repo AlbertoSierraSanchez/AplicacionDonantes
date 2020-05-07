@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 public class ControladoraUIMenuPrincipal {
 
@@ -22,31 +23,36 @@ public class ControladoraUIMenuPrincipal {
 	   private Label tituloMnPrincipal;
 	@FXML
 	   private Main MnPrincipal;
+		private Stage ventana;
 	
-	
+		public void CerrarVentana(){
+			this.ventana.close();
+		}
+		
 	public void setMnPrincipal(Main MnPrincipal) {
         this.MnPrincipal = MnPrincipal;
     }
 	public void initialize() {
-		
+		tituloMnPrincipal.setText("Aplicación de Gestión");
 		
 	}
 	
 	 public void AbrirDonantes(ActionEvent action){
-		System.out.println("Donante");
+		
 		this.MnPrincipal.mostrarMenuDonantes();
+		
 }
 	
 	
 	 public void AbrirDonaciones(ActionEvent action){
 		 
-		System.out.println("Donaciones");
+		
 		this.MnPrincipal.mostrarMenuDonaciones();
 	
 	}
 	
 	 public void AbrirInformes(ActionEvent action){
-	System.out.println("Informes");
+	
 	this.MnPrincipal.mostrarMenuInformes();
 }
 

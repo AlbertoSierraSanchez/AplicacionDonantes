@@ -83,18 +83,18 @@ public class ControladoraUIDonantes {
 	   private Main MnPrincipal;
 	
 	
-	public void setMnPrincipal(Main MnPrincipal) {
+	   public void setMnPrincipal(Main MnPrincipal) {
         this.MnPrincipal = MnPrincipal;
     }
-	 
 	   
 	   public void setStagePrincipal(Stage ventana) {
 			// TODO Auto-generated method stub
 			this.ventana = ventana;
 		}
 
-		public void closeWindow(){
+	   public void closeWindow(){
 			this.ventana.close();
+			
 		}
 
 
@@ -102,18 +102,18 @@ public class ControladoraUIDonantes {
 		   
 	   }
 	   public void Nuevo(ActionEvent event) throws SQLException{
-		   System.out.println("eeeeeee");
+		   
+		   this.MnPrincipal.mostrarMenuNuevoDonante();
+		   
 		   
 	   }
 	   public void Modificar(ActionEvent event) throws SQLException{
-		   
+		   this.MnPrincipal.mostrarMenuMODDonante();
 	   }
 	   public void Eliminar(ActionEvent event) throws SQLException{
 		   
 	   }
-	   public void Volver(ActionEvent event) throws SQLException{
-		   
-	   }
+	  
 	
 	
 	   

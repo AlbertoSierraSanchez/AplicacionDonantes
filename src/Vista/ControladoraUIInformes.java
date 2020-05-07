@@ -69,9 +69,7 @@ public class ControladoraUIInformes {
 	   public void Buscar(){
 		   
 	   }
-	   public void Volver(){
-	   
-}
+	  
 		
 	
 }

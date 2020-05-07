@@ -26,7 +26,7 @@
       </TableView>
       <Button fx:id="FiltrarD" layoutX="33.0" layoutY="63.0" mnemonicParsing="false" onAction="#FiltrarD" text="Filtrar" />
       <Label layoutX="86.0" layoutY="67.0" text="Nº" />
-      <TextField fx:id="FNumero" layoutX="107.0" layoutY="63.0" prefHeight="25.0" prefWidth="76.0" />
+      <TextField fx:id="FNumero" layoutX="112.0" layoutY="63.0" prefHeight="25.0" prefWidth="76.0" />
       <Label layoutX="200.0" layoutY="67.0" text="Tipo" />
       <TextField fx:id="FTipo" layoutX="233.0" layoutY="63.0" prefHeight="25.0" prefWidth="76.0" />
       <Label layoutX="248.0" layoutY="14.0" text="Administración de Donaciones" />

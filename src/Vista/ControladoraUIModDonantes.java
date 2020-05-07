@@ -9,11 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-
-public class ControladoraUINuevoDonante {
-
-	
-	 @FXML
+public class ControladoraUIModDonantes {
+	@FXML
 	   private TextField Col_Nombre;
 	   @FXML
 	   private TextField Col_Apellido1;
@@ -49,6 +46,9 @@ public class ControladoraUINuevoDonante {
 	   private Button Volver;
 	   @FXML
 	   private ImageView Imagen;
+	   
+	   
+	   
 	   
 	   
 	   private Stage ventana;
@@ -88,7 +88,6 @@ public class ControladoraUINuevoDonante {
 			   
 		   }
 		
-	   
 	   
 	   
 }
