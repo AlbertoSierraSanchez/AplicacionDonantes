@@ -39,6 +39,32 @@ public class Donante {
 		Ciclo = ciclo;
 		Imagen = imagen;
 	}
+	
+	public Donante(int n_donante, String identificacion, String nombre, String apellido1, String apellido2,
+			String email, String estado, int telefono, int cod_postal, String f_nacimiento, String sexo,
+			String g_sangre, String ciclo) {
+		super();
+		N_donante = n_donante;
+		Identificacion = identificacion;
+		Nombre = nombre;
+		Apellido1 = apellido1;
+		Apellido2 = apellido2;
+		Email = email;
+		Estado = estado;
+		Telefono = telefono;
+		Cod_postal = cod_postal;
+		F_nacimiento = f_nacimiento;
+		Sexo = sexo;
+		G_sangre = g_sangre;
+		Ciclo = ciclo;
+	}
+	
+	
+	
+	
+	
+	
+	
 
 
 

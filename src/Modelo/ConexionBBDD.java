@@ -4,7 +4,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 
 
@@ -17,8 +21,6 @@ import java.util.Properties;
 		
 	public ConexionBBDD()  {
 
-		
-		
 		Properties propiedades = new Properties();
 		InputStream entrada = null;
 		try {
@@ -59,4 +61,482 @@ import java.util.Properties;
 			e.printStackTrace();
 		}
 	}
+	
+	public ObservableList<Donante> MostrarTabla() throws SQLException{
+
+		
+
+		
+		ObservableList<Donante> listaPersonas =  FXCollections.observableArrayList();
+
+		//Preparo la conexión para ejecutar sentencias SQL de tipo update
+		Statement stm = conexion.createStatement();
+
+		// Preparo la sentencia SQL CrearTablaPersonas
+		String selectsql = "SELECT N_DONANTE,IDENTIFICACION,NOMBRE,APELLIDO1,APELLIDO2,EMAIL,ESTADO,TELEFONO,COD_POSTAL,FECHA_NACIMIENTO,SEXO,GRUPO_SANGRE,CICLO FROM "+usr+".DONANTE";
+		
+		//ejecuto la sentencia
+		try{
+			ResultSet resultado = stm.executeQuery(selectsql);
+
+			while(resultado.next()){
+				int N_donante=resultado.getInt(1);
+				String Identificacion=resultado.getString(2);
+				String Nombre=resultado.getString(3);
+				String Ape1=resultado.getString(4);
+				String Ape2=resultado.getString(5);
+				String Email=resultado.getString(6);
+				String Estado=resultado.getString(7);
+				int Telefono=resultado.getInt(8);
+				int Cod_Postal=resultado.getInt(9);
+				String Fecha_Nac=resultado.getString(10);
+				String Sexo=resultado.getString(11);
+				String GrupoS=resultado.getString(12);
+				String Ciclo=resultado.getString(13);
+				
+				Donante donante = new Donante(N_donante,Identificacion,Nombre,Ape1,Ape2,Email,Estado,Telefono,Cod_Postal,Fecha_Nac,Sexo,GrupoS,Ciclo);
+				listaPersonas.add(donante);
+			}
+
+		}catch(SQLException sqle){
+
+			System.out.println(sqle);
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+			System.out.println(codeErrorSQL);
+		}
+		
+
+		return listaPersonas;
+	}
+	
+	public ObservableList<Donante> Filtrar(String nombre,String estado,String ciclo) throws SQLException{
+
+		//"SELECT N_DONANTE,IDENTIFICACION,NOMBRE,APELLIDO1,APELLIDO2,EMAIL,ESTADO,TELEFONO,COD_POSTAL,FECHA_NACIMIENTO,SEXO,GRUPO_SANGRE,CICLO FROM "+usr+".DONANTE WHERE NOMBRE = ? AND APELLIDO1 = ? AND IDENTIFICACION = ? AND ESTADO = ? AND CICLO = ?"
+		/*
+		 * 		pstmt.setString(1, nombre);
+    			pstmt.setString(2, ape1);
+    			pstmt.setString(3, dni);
+    			pstmt.setString(4, estado);
+    			pstmt.setString(5, ciclo);
+    	*/
+    	ObservableList<Donante> listaPersonas2 =  FXCollections.observableArrayList();
+    	
+    	//Preparo la conexión para ejecutar sentencias SQL de tipo update
+    			
+    			
+    			if(nombre.length()!=0 && estado.equals("-") && ciclo.equals("-")){
+    		
+					    		// Preparo la sentencia SQL CrearTablaPersonas
+								String selectsql = "SELECT N_DONANTE,IDENTIFICACION,NOMBRE,APELLIDO1,APELLIDO2,EMAIL,ESTADO,TELEFONO,COD_POSTAL,FECHA_NACIMIENTO,SEXO,GRUPO_SANGRE,CICLO FROM "+usr+".DONANTE WHERE NOMBRE = ?";
+								PreparedStatement pstmt = conexion.prepareStatement(selectsql);
+								
+								pstmt.setString(1, nombre);
+								
+								//ejecuto la sentencia
+								try{
+									ResultSet resultado = pstmt.executeQuery();
+					
+									while(resultado.next()){
+										
+										int N_donante=resultado.getInt(1);
+										String Identificacion=resultado.getString(2);
+										String Nombre=resultado.getString(3);
+										String Ape1=resultado.getString(4);
+										String Ape2=resultado.getString(5);
+										String Email=resultado.getString(6);
+										String Estado=resultado.getString(7);
+										int Telefono=resultado.getInt(8);
+										int Cod_Postal=resultado.getInt(9);
+										String Fecha_Nac=resultado.getString(10);
+										String Sexo=resultado.getString(11);
+										String GrupoS=resultado.getString(12);
+										String Ciclo=resultado.getString(13);
+										
+										Donante donante = new Donante(N_donante,Identificacion,Nombre,Ape1,Ape2,Email,Estado,Telefono,Cod_Postal,Fecha_Nac,Sexo,GrupoS,Ciclo);
+										listaPersonas2.add(donante);
+									}
+					
+								}catch(SQLException sqle){
+					
+									System.out.println(sqle);
+									
+									int pos = sqle.getMessage().indexOf(":");
+									String codeErrorSQL = sqle.getMessage().substring(0,pos);
+					
+									System.out.println(codeErrorSQL);
+								}
+    		}else{
+    			
+    			if((nombre.length()!=0 && !estado.equals("-") && ciclo.equals("-"))){
+    				
+    				
+    				String selectsql = "SELECT N_DONANTE,IDENTIFICACION,NOMBRE,APELLIDO1,APELLIDO2,EMAIL,ESTADO,TELEFONO,COD_POSTAL,FECHA_NACIMIENTO,SEXO,GRUPO_SANGRE,CICLO FROM "+usr+".DONANTE WHERE NOMBRE = ? AND ESTADO = ?";
+					PreparedStatement pstmt = conexion.prepareStatement(selectsql);
+					
+					pstmt.setString(1, nombre);
+					pstmt.setString(2, estado);
+					
+					//ejecuto la sentencia
+					try{
+						ResultSet resultado = pstmt.executeQuery();
+		
+						while(resultado.next()){
+							
+							int N_donante=resultado.getInt(1);
+							String Identificacion=resultado.getString(2);
+							String Nombre=resultado.getString(3);
+							String Ape1=resultado.getString(4);
+							String Ape2=resultado.getString(5);
+							String Email=resultado.getString(6);
+							String Estado=resultado.getString(7);
+							int Telefono=resultado.getInt(8);
+							int Cod_Postal=resultado.getInt(9);
+							String Fecha_Nac=resultado.getString(10);
+							String Sexo=resultado.getString(11);
+							String GrupoS=resultado.getString(12);
+							String Ciclo=resultado.getString(13);
+							
+							Donante donante = new Donante(N_donante,Identificacion,Nombre,Ape1,Ape2,Email,Estado,Telefono,Cod_Postal,Fecha_Nac,Sexo,GrupoS,Ciclo);
+							listaPersonas2.add(donante);
+						}
+		
+					}catch(SQLException sqle){
+		
+						System.out.println(sqle);
+						
+						int pos = sqle.getMessage().indexOf(":");
+						String codeErrorSQL = sqle.getMessage().substring(0,pos);
+		
+						System.out.println(codeErrorSQL);
+					}
+    				
+    				
+    			}else{
+    				if((nombre.length()!=0 && !estado.equals("-") && !ciclo.equals("-"))){
+    					
+    					
+    					String selectsql = "SELECT N_DONANTE,IDENTIFICACION,NOMBRE,APELLIDO1,APELLIDO2,EMAIL,ESTADO,TELEFONO,COD_POSTAL,FECHA_NACIMIENTO,SEXO,GRUPO_SANGRE,CICLO FROM "+usr+".DONANTE WHERE NOMBRE = ? AND ESTADO = ? AND CICLO=?";
+    					PreparedStatement pstmt = conexion.prepareStatement(selectsql);
+    					
+    					pstmt.setString(1, nombre);
+    					pstmt.setString(2, estado);
+    					pstmt.setString(3, ciclo);
+    					
+    					//ejecuto la sentencia
+    					try{
+    						ResultSet resultado = pstmt.executeQuery();
+    		
+    						while(resultado.next()){
+    							
+    							int N_donante=resultado.getInt(1);
+    							String Identificacion=resultado.getString(2);
+    							String Nombre=resultado.getString(3);
+    							String Ape1=resultado.getString(4);
+    							String Ape2=resultado.getString(5);
+    							String Email=resultado.getString(6);
+    							String Estado=resultado.getString(7);
+    							int Telefono=resultado.getInt(8);
+    							int Cod_Postal=resultado.getInt(9);
+    							String Fecha_Nac=resultado.getString(10);
+    							String Sexo=resultado.getString(11);
+    							String GrupoS=resultado.getString(12);
+    							String Ciclo=resultado.getString(13);
+    							
+    							Donante donante = new Donante(N_donante,Identificacion,Nombre,Ape1,Ape2,Email,Estado,Telefono,Cod_Postal,Fecha_Nac,Sexo,GrupoS,Ciclo);
+    							listaPersonas2.add(donante);
+    						}
+    		
+    					}catch(SQLException sqle){
+    		
+    						System.out.println(sqle);
+    						
+    						int pos = sqle.getMessage().indexOf(":");
+    						String codeErrorSQL = sqle.getMessage().substring(0,pos);
+    		
+    						System.out.println(codeErrorSQL);
+    					}
+    					
+    				}else{
+    					
+    					if((nombre.length()==0 && !estado.equals("-") && ciclo.equals("-"))){
+    						
+    						
+    						String selectsql = "SELECT N_DONANTE,IDENTIFICACION,NOMBRE,APELLIDO1,APELLIDO2,EMAIL,ESTADO,TELEFONO,COD_POSTAL,FECHA_NACIMIENTO,SEXO,GRUPO_SANGRE,CICLO FROM "+usr+".DONANTE WHERE ESTADO = ?";
+        					PreparedStatement pstmt = conexion.prepareStatement(selectsql);
+        					
+        					
+        					pstmt.setString(1, estado);
+        					
+        					
+        					//ejecuto la sentencia
+        					try{
+        						ResultSet resultado = pstmt.executeQuery();
+        		
+        						while(resultado.next()){
+        							
+        							int N_donante=resultado.getInt(1);
+        							String Identificacion=resultado.getString(2);
+        							String Nombre=resultado.getString(3);
+        							String Ape1=resultado.getString(4);
+        							String Ape2=resultado.getString(5);
+        							String Email=resultado.getString(6);
+        							String Estado=resultado.getString(7);
+        							int Telefono=resultado.getInt(8);
+        							int Cod_Postal=resultado.getInt(9);
+        							String Fecha_Nac=resultado.getString(10);
+        							String Sexo=resultado.getString(11);
+        							String GrupoS=resultado.getString(12);
+        							String Ciclo=resultado.getString(13);
+        							
+        							Donante donante = new Donante(N_donante,Identificacion,Nombre,Ape1,Ape2,Email,Estado,Telefono,Cod_Postal,Fecha_Nac,Sexo,GrupoS,Ciclo);
+        							listaPersonas2.add(donante);
+        						}
+        		
+        					}catch(SQLException sqle){
+        		
+        						System.out.println(sqle);
+        						
+        						int pos = sqle.getMessage().indexOf(":");
+        						String codeErrorSQL = sqle.getMessage().substring(0,pos);
+        		
+        						System.out.println(codeErrorSQL);
+        					}
+    						
+    					}else{
+    						if((nombre.length()==0 && !estado.equals("-") && !ciclo.equals("-"))){
+    							
+    							String selectsql = "SELECT N_DONANTE,IDENTIFICACION,NOMBRE,APELLIDO1,APELLIDO2,EMAIL,ESTADO,TELEFONO,COD_POSTAL,FECHA_NACIMIENTO,SEXO,GRUPO_SANGRE,CICLO FROM "+usr+".DONANTE WHERE ESTADO = ? AND CICLO=?";
+            					PreparedStatement pstmt = conexion.prepareStatement(selectsql);
+            					
+            					
+            					pstmt.setString(1, estado);
+            					pstmt.setString(2, ciclo);
+            					
+            					
+            					//ejecuto la sentencia
+            					try{
+            						ResultSet resultado = pstmt.executeQuery();
+            		
+            						while(resultado.next()){
+            							
+            							int N_donante=resultado.getInt(1);
+            							String Identificacion=resultado.getString(2);
+            							String Nombre=resultado.getString(3);
+            							String Ape1=resultado.getString(4);
+            							String Ape2=resultado.getString(5);
+            							String Email=resultado.getString(6);
+            							String Estado=resultado.getString(7);
+            							int Telefono=resultado.getInt(8);
+            							int Cod_Postal=resultado.getInt(9);
+            							String Fecha_Nac=resultado.getString(10);
+            							String Sexo=resultado.getString(11);
+            							String GrupoS=resultado.getString(12);
+            							String Ciclo=resultado.getString(13);
+            							
+            							Donante donante = new Donante(N_donante,Identificacion,Nombre,Ape1,Ape2,Email,Estado,Telefono,Cod_Postal,Fecha_Nac,Sexo,GrupoS,Ciclo);
+            							listaPersonas2.add(donante);
+            						}
+            		
+            					}catch(SQLException sqle){
+            		
+            						System.out.println(sqle);
+            						
+            						int pos = sqle.getMessage().indexOf(":");
+            						String codeErrorSQL = sqle.getMessage().substring(0,pos);
+            		
+            						System.out.println(codeErrorSQL);
+            					}
+    						}else{
+    							
+    							if((nombre.length()==0 && estado.equals("-") && !ciclo.equals("-"))){
+    								
+    								
+    								String selectsql = "SELECT N_DONANTE,IDENTIFICACION,NOMBRE,APELLIDO1,APELLIDO2,EMAIL,ESTADO,TELEFONO,COD_POSTAL,FECHA_NACIMIENTO,SEXO,GRUPO_SANGRE,CICLO FROM "+usr+".DONANTE WHERE CICLO=?";
+                					PreparedStatement pstmt = conexion.prepareStatement(selectsql);
+                					
+                					
+                				
+                					pstmt.setString(1, ciclo);
+                					
+                					
+                					//ejecuto la sentencia
+                					try{
+                						ResultSet resultado = pstmt.executeQuery();
+                		
+                						while(resultado.next()){
+                							
+                							int N_donante=resultado.getInt(1);
+                							String Identificacion=resultado.getString(2);
+                							String Nombre=resultado.getString(3);
+                							String Ape1=resultado.getString(4);
+                							String Ape2=resultado.getString(5);
+                							String Email=resultado.getString(6);
+                							String Estado=resultado.getString(7);
+                							int Telefono=resultado.getInt(8);
+                							int Cod_Postal=resultado.getInt(9);
+                							String Fecha_Nac=resultado.getString(10);
+                							String Sexo=resultado.getString(11);
+                							String GrupoS=resultado.getString(12);
+                							String Ciclo=resultado.getString(13);
+                							
+                							Donante donante = new Donante(N_donante,Identificacion,Nombre,Ape1,Ape2,Email,Estado,Telefono,Cod_Postal,Fecha_Nac,Sexo,GrupoS,Ciclo);
+                							listaPersonas2.add(donante);
+                						}
+                		
+                					}catch(SQLException sqle){
+                		
+                						System.out.println(sqle);
+                						
+                						int pos = sqle.getMessage().indexOf(":");
+                						String codeErrorSQL = sqle.getMessage().substring(0,pos);
+                		
+                						System.out.println(codeErrorSQL);
+                					}
+                					
+    								
+    								
+    							}else{
+    								if((nombre.length()!=0 && estado.equals("-") && !ciclo.equals("-"))){
+    									String selectsql = "SELECT N_DONANTE,IDENTIFICACION,NOMBRE,APELLIDO1,APELLIDO2,EMAIL,ESTADO,TELEFONO,COD_POSTAL,FECHA_NACIMIENTO,SEXO,GRUPO_SANGRE,CICLO FROM "+usr+".DONANTE WHERE NOMBRE=? AND CICLO=?";
+                    					PreparedStatement pstmt = conexion.prepareStatement(selectsql);
+                    					
+                    					
+                    				
+                    					pstmt.setString(1, nombre);
+                    					pstmt.setString(2, ciclo);
+                    					
+                    					
+                    					//ejecuto la sentencia
+                    					try{
+                    						ResultSet resultado = pstmt.executeQuery();
+                    		
+                    						while(resultado.next()){
+                    							
+                    							int N_donante=resultado.getInt(1);
+                    							String Identificacion=resultado.getString(2);
+                    							String Nombre=resultado.getString(3);
+                    							String Ape1=resultado.getString(4);
+                    							String Ape2=resultado.getString(5);
+                    							String Email=resultado.getString(6);
+                    							String Estado=resultado.getString(7);
+                    							int Telefono=resultado.getInt(8);
+                    							int Cod_Postal=resultado.getInt(9);
+                    							String Fecha_Nac=resultado.getString(10);
+                    							String Sexo=resultado.getString(11);
+                    							String GrupoS=resultado.getString(12);
+                    							String Ciclo=resultado.getString(13);
+                    							
+                    							Donante donante = new Donante(N_donante,Identificacion,Nombre,Ape1,Ape2,Email,Estado,Telefono,Cod_Postal,Fecha_Nac,Sexo,GrupoS,Ciclo);
+                    							listaPersonas2.add(donante);
+                    						}
+                    		
+                    					}catch(SQLException sqle){
+                    		
+                    						System.out.println(sqle);
+                    						
+                    						int pos = sqle.getMessage().indexOf(":");
+                    						String codeErrorSQL = sqle.getMessage().substring(0,pos);
+                    		
+                    						System.out.println(codeErrorSQL);
+                    					}
+    								}
+    								
+    							}
+    						}
+    					}
+    					
+    					
+    				}
+    			}
+    			
+    			
+    			
+    		}
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    			
+    					
+			return listaPersonas2;
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    		
+    	}
+    	
+    public void Eliminar(int numero) throws SQLException{
+    	
+    	//Preparo la conexión para ejecutar sentencias SQL de tipo update
+	
+		
+		// Preparo la sentencia SQL
+		String insertsql = "DELETE FROM "+usr+".DONANTE WHERE N_DONANTE = ?";
+		
+		PreparedStatement pstmt = conexion.prepareStatement(insertsql);
+		
+		pstmt.setInt(1, numero);
+		//ejecuto la sentencia
+		try{
+			int resultado = pstmt.executeUpdate();
+
+			if(resultado !=1)
+				System.out.println("Error en la inserción " + resultado);
+		}catch(SQLException sqle){
+			
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0, pos);
+			
+			if(codeErrorSQL.equals("ORA-00001") )
+				System.out.println("la tabla PERSON2 ya estaba creada!!!");
+			else
+				System.out.println("Ha habido algún problema con  Oracle al hacer el borrado de tabla");
+		}
+    	
+    	
+    	
+
+    }
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    			
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}
