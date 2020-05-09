@@ -1,6 +1,7 @@
 package Modelo;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -520,11 +521,105 @@ import javafx.collections.ObservableList;
     	
     	
     	
+    public void InsertarDonante(int n_donante, String identificacion, String nombre, String apellido1, String apellido2,
+			String email, String estado, int telefono, int cod_postal, String f_nacimiento,File imagen, String sexo,
+			String g_sangre, String ciclo) throws SQLException, FileNotFoundException{
+    	
+    	
+    	
+    		
     	
     	
     	
     	
-    			
+    	
+    	
+    	
+    	String insertsql = "INSERT INTO "+usr+".DONANTE VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		
+		PreparedStatement pstmt = conexion.prepareStatement(insertsql);
+		
+		
+		pstmt.setInt(1, n_donante);
+		pstmt.setString(2, identificacion);
+		pstmt.setString(3, nombre);
+		pstmt.setString(4, apellido1);
+		pstmt.setString(5, apellido2);
+		pstmt.setString(6, email);
+		pstmt.setString(7, estado);
+		pstmt.setInt(8, telefono);
+		pstmt.setInt(9, cod_postal);
+		pstmt.setString(10, f_nacimiento);
+		FileInputStream convertir_imagen = new FileInputStream (imagen);
+		pstmt.setBlob(11, convertir_imagen, imagen.length());
+		pstmt.setString(12, sexo);
+		pstmt.setString(13, g_sangre);
+		pstmt.setString(14, ciclo);
+		
+		
+		//ejecuto la sentencia
+	try{
+		
+			int resultado = pstmt.executeUpdate();
+		
+			if(resultado != 1)
+				System.out.println("Error en la inserción " + resultado);
+		
+	}catch(SQLException sqle){
+		
+		int pos = sqle.getMessage().indexOf(":");
+		String codeErrorSQL = sqle.getMessage().substring(0, pos);
+		if(codeErrorSQL.equals("ORA-00001") )
+			System.out.println("Ese correo ya existe!!!");
+		
+		else if(codeErrorSQL.equals("ORA-00001"))
+			
+			System.out.println("El correo debe contener un máximo de 20 caracteres");
+		else
+			System.out.println("Problemas de Inserción: " + sqle);
+	}
+
+
+    	
+    	
+    	
+    	
+    	
+    }
+    	
+    	
+    	
+    public int ProxDonante() throws SQLException{
+    	
+    	
+    	String selectsql = "SELECT N_DONANTE FROM ALBERTO95.DONANTE";
+    	Statement stm = conexion.createStatement();
+    	
+    	ResultSet resultado1 = stm.executeQuery(selectsql);
+    	
+    	int contador=0;
+    	
+    	int numerito=0;
+    	
+    	
+    	try{
+    	while(resultado1.next()){
+    		
+    		contador++;
+    		 
+    	}
+    	
+    	
+    	
+	}catch(SQLException sqle){
+		
+		
+		System.out.println(sqle);
+		
+	}
+    	return contador+1;
+    	
+    }
 	
 	
 	

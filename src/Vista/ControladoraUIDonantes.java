@@ -220,11 +220,9 @@ public class ControladoraUIDonantes {
 			
 			
 			
-		}
-		   
-		   
-		   
-		   
 	   }
+}
+		   
+	
 	  
 
