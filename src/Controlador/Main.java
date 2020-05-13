@@ -2,6 +2,7 @@ package Controlador;
 
 import java.io.IOException;
 
+import Modelo.Donante;
 import Vista.ControladoraUIAltaDonacion;
 import Vista.ControladoraUIComprobacionDonacion;
 import Vista.ControladoraUIDonacion;
@@ -27,12 +28,13 @@ public class Main extends Application {
     public void start(Stage stagePrincipal) throws Exception {
         Main.stagePrincipal = stagePrincipal;
         mostrarMenuPrincipal();
-
+  
     }
-
+    public static Donante donante;
     /* En un proyecto JavaFX el main llama al launch que a su vez llama a start */
     public static void main(String[] args) {
         launch(args);
+        donante=new Donante();
     }
 
     /*
@@ -76,6 +78,7 @@ public class Main extends Application {
             ControladoraUIDonantes controller2 = loader.getController();
             controller2.setStagePrincipal(ventana1);
             controller2.setMnPrincipal(this);
+            
             ventana1.show();
             
         } catch (Exception e) {
@@ -151,8 +154,10 @@ public class Main extends Application {
         }
     }
 
-    public void mostrarMenuMODDonante() {
+    public void mostrarMenuMODDonante(Donante donante) {
+    	
         try {
+        	
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vista/UIModDonante.fxml"));
             AnchorPane ventanaDos = (AnchorPane) loader.load();
             /* Creamos la segunda ventana como otro stage */
@@ -164,9 +169,11 @@ public class Main extends Application {
             ventana.setScene(scene);
 
             ControladoraUIModDonantes controller2 = loader.getController();
+           
             controller2.setStagePrincipal(ventana);
-
-            ventana.show();
+            controller2.setMnPrincipal(this);
+            controller2.setDonante(donante);
+                       ventana.show();
             
 
         } catch (Exception e) {

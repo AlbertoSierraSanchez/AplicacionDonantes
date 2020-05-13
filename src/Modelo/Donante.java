@@ -59,14 +59,10 @@ public class Donante {
 		Ciclo = ciclo;
 	}
 	
-	
-	
-	
-	
-	
-	
-
-
+	public Donante() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getN_donante() {
 		return N_donante;

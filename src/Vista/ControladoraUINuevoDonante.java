@@ -4,13 +4,15 @@ package Vista;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 
+import com.itextpdf.text.DocumentException;
+
 import Controlador.Main;
 import Modelo.ConexionBBDD;
-
+import Modelo.ImprimePDF;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,6 +47,8 @@ public class ControladoraUINuevoDonante {
 	   private TextField Col_Telefono;
 	   @FXML
 	   private TextField Col_CP;
+	   @FXML
+	   private TextField Col_NDonante;
 	   @FXML
 	   private DatePicker Col_Date;
 	   @FXML
@@ -119,17 +123,221 @@ public class ControladoraUINuevoDonante {
 			 Col_Ciclo.setValue("-");
 		
 			
-			 
+			
 			 
 		}
 		
 		
 		
-		public void Guardar(ActionEvent event) throws NumberFormatException, FileNotFoundException, SQLException{
+		public void Guardar(ActionEvent event) throws NumberFormatException, SQLException, IOException{
 			   
 			
 			String Estado="APTO";
-			int aux = con.ProxDonante();
+		
+			
+			
+			// Añadir un chequeo de campos vacíos o de validación de formato como el email (El campo Apellido2 y el campo foto no es obligatorio)
+			//Col_Nombre.getText().equals("") || Col_Apellido1.getText().equals("") || Col_DNI.getText().equals("") || Col_Email.getText().equals("") || Col_Telefono.getText().equals("") 
+			//|| Col_CP.getText().equals("") || Col_Sexo.getValue().equals("-") || Col_Grupo.getValue().equals("-") || Col_Ciclo.getValue().equals("-")
+			
+			if(Col_Nombre.getText().length()>25 ||  Col_Nombre.getText().equals("") || checkalfabeto(this.Col_Nombre.getText().toLowerCase())==false){
+	
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error!!!");
+				alert.setHeaderText("¡Revisa el campo Nombre!");
+				alert.setContentText("1.- No podemos dejarlo vacío\n"+"2.- Máximo de 25 carácteres\n"+"3.- Sólo letras");
+			
+				alert.showAndWait();
+			}else{
+				if(Col_Apellido1.getText().length()>25 ||  Col_Apellido1.getText().equals("") || checkalfabeto(this.Col_Apellido1.getText().toLowerCase())==false){
+					
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error!!!");
+					alert.setHeaderText("¡Revisa el campo Apellido1!");
+					alert.setContentText("1.- No podemos dejarlo vacío\n"+"2.- Máximo de 25 carácteres\n"+"3.- Sólo letras");
+				
+					alert.showAndWait();
+				}else{
+					if(Col_Apellido2.getText().length()>25 ||  Col_Apellido2.getText().equals("") || checkalfabeto(this.Col_Apellido2.getText().toLowerCase())==false){
+						
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Error!!!");
+						alert.setHeaderText("¡Revisa el campo Apellido2!");
+						alert.setContentText("1.- No podemos dejarlo vacío\n"+"2.- Máximo de 25 carácteres\n"+"3.- Sólo letras");
+					
+						alert.showAndWait();
+					}else{
+						if(this.Col_Email.getText().indexOf('@')==0 && this.Col_Email.getText().indexOf('.')==0 ){
+							
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Error!!!");
+							alert.setHeaderText("¡Revisa el campo Correo!");
+							alert.setContentText("1.- No podemos dejarlo vacío\n 2.- Debe contener un '@' y al menos un '.' \n");
+							alert.showAndWait();
+						}else{
+							
+							String correo=Col_Email.getText();
+							if(con.ComprobarCorreo(correo)==true){
+								
+								Alert alert = new Alert(AlertType.ERROR);
+								alert.setTitle("Error!!!");
+								alert.setHeaderText("¡Revisa el campo Correo!");
+								alert.setContentText("1.-Ese correo ya existe !");
+								alert.showAndWait();
+							}else{
+								String dni=Col_DNI.getText();
+								if(this.Col_DNI.equals("") || con.ComprobarDNI(dni)){
+									
+									Alert alert = new Alert(AlertType.ERROR);
+									alert.setTitle("Error!!!");
+									alert.setHeaderText("¡Revisa el campo DNI!");
+									alert.setContentText("Introduce un DNI válido !");
+									alert.showAndWait();
+									
+									
+									
+								}else{
+									
+									if(this.Col_Telefono.getText().equals("") || this.Col_Telefono.getText().length()>11){
+										Alert alert = new Alert(AlertType.ERROR);
+										alert.setTitle("Error!!!");
+										alert.setHeaderText("¡Revisa el campo Telefono!");
+										alert.setContentText("Introduce un Teléfono válido !");
+										alert.showAndWait();
+								}else{
+									int telefono=Integer.parseInt(Col_Telefono.getText());
+									if(con.ComprobarTLF(telefono)==true){
+										
+										Alert alert = new Alert(AlertType.ERROR);
+										alert.setTitle("Error!!!");
+										alert.setHeaderText("¡Revisa el campo Telefono!");
+										alert.setContentText("Ese télefono ya existe !");
+										alert.showAndWait();
+										
+										
+									}else{
+										int numero = Integer.parseInt(this.Col_NDonante.getText());
+										if(con.ComprobarNumero(numero)==true){
+											
+											Alert alert = new Alert(AlertType.ERROR);
+											alert.setTitle("Error!!!");
+											alert.setHeaderText("¡Revisa el campo Número de Donante!");
+											alert.setContentText("Ese número ya existe !");
+											alert.showAndWait();
+											
+										}else{
+												if(this.Col_CP.getText().length()>6){
+													
+													Alert alert = new Alert(AlertType.ERROR);
+													alert.setTitle("Atención !!!");
+													alert.setHeaderText("¿Sabes que en España el CP sólo tiene 5 dígitos?");
+													alert.setContentText(" Échale un vistazo anda...! ");
+													alert.showAndWait();
+												}else{
+													
+													if(this.Col_Grupo.getValue().equals("-") || this.Col_Sexo.getValue().equals("-") || this.Col_Ciclo.getValue().equals("-")){
+														
+														Alert alert = new Alert(AlertType.ERROR);
+														alert.setTitle("Atención !!!");
+														alert.setHeaderText("Por favor rellena TODOS los campos....");
+														alert.setContentText(" Incluidos el sexo, el grupo sanguíneo y el ciclo");
+														alert.showAndWait();
+													}else{
+														
+														DateTimeFormatter isoFormat = DateTimeFormatter.ISO_LOCAL_DATE;
+														String dateX = Col_Date.getValue().format(isoFormat);
+														con.InsertarDonante(Integer.parseInt(Col_NDonante.getText()),Col_DNI.getText(),Col_Nombre.getText(), Col_Apellido1.getText(),Col_Apellido2.getText(), Col_Email.getText(),Estado, Integer.parseInt(Col_Telefono.getText()),Integer.parseInt(Col_CP.getText()), dateX, file, Col_Sexo.getValue(), Col_Grupo.getValue(), Col_Ciclo.getValue());
+														
+														Alert alert = new Alert(AlertType.INFORMATION);
+														alert.setTitle("Información....");
+														alert.setHeaderText("Vuelve al menú principal para actualizar los datos");
+														alert.setContentText("Gracias !");
+														alert.showAndWait();
+														
+														ResetCampos();
+														}
+														
+														
+													
+													
+													
+												}
+												
+												
+											}
+											
+											
+											
+											
+											
+											
+										}
+										
+										
+										
+										
+										
+									}
+								}
+									
+									
+									
+								}
+								
+								
+							}
+						}
+					}
+					
+					
+				}
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			}
+			
+			
+			
+			
+			
+		   
+		public void ResetCampos() throws FileNotFoundException{
+			this.Col_Nombre.setText(""); 
+			this.Col_Apellido1.setText("");
+			this.Col_Apellido2.setText("");
+			this.Col_DNI.setText("");
+			this.Col_Email.setText("");
+			this.Col_CP.setText("");
+			this.Col_Telefono.setText("");
+			this.Col_Ciclo.setValue("-");
+			this.Col_Grupo.setValue("-");
+			this.Col_Sexo.setValue("-");
+			this.Col_Date.setValue(null);
+			File img = new File("C:/Users/Lenovo/workspace/AplicacionDonantes/src/Vista/images.jpg");
+			FileInputStream conv_img = new FileInputStream(img);
+			Image img1 = new Image(conv_img);
+			this.Imagen.setImage(img1);
+			this.txtf_ruta.setText("");
+			
+		   }
+		public void GuardarImprimir() throws FileNotFoundException, DocumentException, SQLException{
+			   
+			
+			String Estado="APTO";
+			
 			DateTimeFormatter isoFormat = DateTimeFormatter.ISO_LOCAL_DATE;
 			
 			// Añadir un chequeo de campos vacíos o de validación de formato como el email (El campo Apellido2 y el campo foto no es obligatorio)
@@ -151,7 +359,7 @@ public class ControladoraUINuevoDonante {
 				
 				String dateX = Col_Date.getValue().format(isoFormat);
 				
-				con.InsertarDonante(aux, Col_DNI.getText(),Col_Nombre.getText(), Col_Apellido1.getText(),Col_Apellido2.getText(), Col_Email.getText(),Estado, Integer.parseInt(Col_Telefono.getText()),Integer.parseInt(Col_CP.getText()), dateX, file, Col_Sexo.getValue(), Col_Grupo.getValue(), Col_Ciclo.getValue());
+				con.InsertarDonante(Integer.parseInt(Col_NDonante.getText()),Col_DNI.getText(),Col_Nombre.getText(), Col_Apellido1.getText(),Col_Apellido2.getText(), Col_Email.getText(),Estado, Integer.parseInt(Col_Telefono.getText()),Integer.parseInt(Col_CP.getText()), dateX, file, Col_Sexo.getValue(), Col_Grupo.getValue(), Col_Ciclo.getValue());
 				
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("Información....");
@@ -162,27 +370,13 @@ public class ControladoraUINuevoDonante {
 			
 			
 			
+
+			//ImprimePDF imprime = new ImprimePDF(" Carnet-"+Col_Nombre.getText(),"C:\\Users\\Lenovo\\Documents\\Documentos\\DAW\\Programación\\Programación");
+			//imprime.GenerarPDF(Col_Nombre.getText(),Col_Apellido1.getText(),Col_Apellido2.getText(),Col_Grupo.getValue().toString(),file);
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		   }
-		public void ResetCampos(){
-			   
-		   }
-		public void GuardarImprimir(){
-			   
-		   }
-		
+			ResetCampos();
+		   }		
 		public void SeleccionarFoto() throws FileNotFoundException, SQLException{
 			
 			// TODO Auto-generated constructor stub
@@ -211,9 +405,34 @@ public class ControladoraUINuevoDonante {
 			 
 		   }
 		
-		
-		
-	   
-	   
-	   
+		 public boolean checkalfabeto(String palabra){
+			   
+			   
+			   char letra = 0;
+			   int contador=0;
+			   
+			   
+			   
+			   for(int i = 0;i<palabra.length();i++){
+				   
+				   letra = (palabra.charAt(i));
+				   
+			   if(!((letra>='a' && letra<='z') && !(letra>='A' && letra<='Z'))){ 
+				contador++;	
+					}
+			   }
+			   
+			   
+			   if(contador!=0)
+				   
+				   return false;
+			   
+			   else
+				   
+				   return true;
+				  
+				  
+				  
+			  }
+ 
 }
