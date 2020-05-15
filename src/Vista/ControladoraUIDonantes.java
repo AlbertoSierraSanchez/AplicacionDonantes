@@ -1,8 +1,7 @@
 package Vista;
 
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
+
 
 import java.io.FileNotFoundException;
 
@@ -28,7 +27,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class ControladoraUIDonantes {
@@ -146,7 +144,6 @@ public class ControladoraUIDonantes {
 
 		}
 	   
-	
 	   public void setMnPrincipal(Main MnPrincipal) {
         this.MnPrincipal = MnPrincipal;
     }
@@ -161,7 +158,6 @@ public class ControladoraUIDonantes {
 			
 		}
 	   
-
 	   public void Filtrar(ActionEvent event) throws SQLException{
 		   
 		   if(FNombre.getText().length()==0 && FEstado.getValue().equals("-") && FCiclo.getValue().equals("-")){
@@ -184,12 +180,14 @@ public class ControladoraUIDonantes {
 		   
 	   }
 	   public void Modificar(ActionEvent event) throws SQLException{
-		   int index = 0;
 
+		   
+		  int index = Tabla.getSelectionModel().getSelectedIndex();
+		  	
 			if(index>=0){
 				
 				 Donante donante = Tabla.getSelectionModel().getSelectedItem();
-
+				 
 						Alert alert = new Alert(AlertType.CONFIRMATION);
 				       alert.setTitle("Información !!...");
 				       alert.setHeaderText("¿ Desea Modificar a " + donante.getNombre() +" "+ donante.getApellido1()+" ?");
@@ -198,8 +196,7 @@ public class ControladoraUIDonantes {
 				       
 				      if (result.get () == ButtonType.OK){
 				    	  
-				    	  this.MnPrincipal.mostrarMenuMODDonante(donante); 
- 	
+				    	  this.MnPrincipal.mostrarMenuMODDonante(donante); 	
 				       }
 
 			}else{
@@ -209,11 +206,6 @@ public class ControladoraUIDonantes {
 			       alert.setHeaderText("Seleccione una fila...");
 			       alert.showAndWait();
 			}
-		   
-		  
-		   
-		  
-		   
 		   
 		
 	   }
@@ -283,10 +275,8 @@ public class ControladoraUIDonantes {
 					      if (result.get () == ButtonType.OK){
 					    	  
 					    	  
+					    	 
 					    	  
-					    	  Image img = new Image(new ByteArrayInputStream(con.LeerFoto(index)));
-					    	
-					    	 File file = new File(img.toString());
 					    	  
 					    	  
 					    	  
@@ -294,7 +284,7 @@ public class ControladoraUIDonantes {
 					    	  //"C:\\Users\\Lenovo\\Documents\\Documentos\\DAW\\Programación\\Programación"
 					    ImprimePDF imprime = new ImprimePDF(" Carnet-"+seleccionada.getNombre(),"C:\\Users\\Lenovo\\Documents\\Documentos\\DAW\\Programación\\Programación");
 					    
-						imprime.GenerarPDF(seleccionada.getN_donante(),seleccionada.getApellido1(),seleccionada.getApellido2(),seleccionada.getNombre(),seleccionada.getG_sangre(),file);
+						imprime.GenerarPDF(seleccionada.getN_donante(),seleccionada.getApellido1(),seleccionada.getApellido2(),seleccionada.getNombre(),seleccionada.getG_sangre(),seleccionada.getImagen());
 								
 					    	   	Alert alerta = new Alert ( AlertType.INFORMATION ); 
 					    	   	alerta . setTitle ( "Información" ); 

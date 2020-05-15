@@ -25,12 +25,20 @@ public class ImprimePDF {
 	private String ape1;
 	private String ape2;
 	private String G_Sangre;
-	private File Foto;
+	private String Foto;
+	
 	
 	public ImprimePDF(String filename, String filepath) {
 		super();
 		this.filename = filename;
 		this.filepath = filepath;
+	}
+	public ImprimePDF(String filename,String filepath,String RutaFoto){
+		super();
+		this.filename = filename;
+		this.filepath = filepath;
+		this.Foto=RutaFoto;
+		
 	}
 
 
@@ -150,7 +158,7 @@ public class ImprimePDF {
 	
 							// Una vez creado el párrafo puedes modificar varias opciones... como aquí la alineación
 							// ALIGN_CENTER || ALIGN_LEFT || ALIGN_RIGHT ALIGN_JUSTIFY
-							p1.setAlignment(Element.ALIGN_JUSTIFIED);
+							p1.setAlignment(Element.ALIGN_RIGHT);
 	
 							// Añade el párrafo al documeento
 							documento.add(p1);
@@ -163,7 +171,7 @@ public class ImprimePDF {
 
 						// Una vez creado el párrafo puedes modificar varias opciones... como aquí la alineación
 						// ALIGN_CENTER || ALIGN_LEFT || ALIGN_RIGHT ALIGN_JUSTIFY
-						p2.setAlignment(Element.ALIGN_JUSTIFIED);
+						p2.setAlignment(Element.ALIGN_RIGHT);
 
 						// Añade el párrafo al documeento
 						documento.add(p2);
@@ -176,7 +184,7 @@ public class ImprimePDF {
 
 						// Una vez creado el párrafo puedes modificar varias opciones... como aquí la alineación
 						// ALIGN_CENTER || ALIGN_LEFT || ALIGN_RIGHT ALIGN_JUSTIFY
-						p2.setAlignment(Element.ALIGN_JUSTIFIED);
+						p3.setAlignment(Element.ALIGN_RIGHT);
 
 						// Añade el párrafo al documeento
 						documento.add(p3);
@@ -188,7 +196,7 @@ public class ImprimePDF {
 
 						// Una vez creado el párrafo puedes modificar varias opciones... como aquí la alineación
 						// ALIGN_CENTER || ALIGN_LEFT || ALIGN_RIGHT ALIGN_JUSTIFY
-						p2.setAlignment(Element.ALIGN_JUSTIFIED);
+						p4.setAlignment(Element.ALIGN_RIGHT);
 
 						// Añade el párrafo al documeento
 						documento.add(p4);
@@ -201,7 +209,7 @@ public class ImprimePDF {
 
 						// Una vez creado el párrafo puedes modificar varias opciones... como aquí la alineación
 						// ALIGN_CENTER || ALIGN_LEFT || ALIGN_RIGHT ALIGN_JUSTIFY
-						p2.setAlignment(Element.ALIGN_JUSTIFIED);
+						p5.setAlignment(Element.ALIGN_RIGHT);
 
 						// Añade el párrafo al documeento
 						documento.add(p5);

@@ -173,15 +173,18 @@ public class Main extends Application {
             controller2.setStagePrincipal(ventana);
             controller2.setMnPrincipal(this);
             controller2.setDonante(donante);
-                       ventana.show();
+            ventana.show();
             
 
         } catch (Exception e) {
             //tratar la excepción
+        	
         	System.out.println(e);
+        	
         }
     }
 
+    
     public void mostrarMenuComprobacionDonacion() {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("../Vista/UIComprobacionDonacion.fxml"));

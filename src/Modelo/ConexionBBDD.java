@@ -77,7 +77,7 @@ import javafx.collections.ObservableList;
 		Statement stm = conexion.createStatement();
 
 		// Preparo la sentencia SQL CrearTablaPersonas
-		String selectsql = "SELECT N_DONANTE,IDENTIFICACION,NOMBRE,APELLIDO1,APELLIDO2,EMAIL,ESTADO,TELEFONO,COD_POSTAL,FECHA_NACIMIENTO,SEXO,GRUPO_SANGRE,CICLO FROM "+usr+".DONANTE";
+		String selectsql = "SELECT N_DONANTE,IDENTIFICACION,NOMBRE,APELLIDO1,APELLIDO2,EMAIL,ESTADO,TELEFONO,COD_POSTAL,FECHA_NACIMIENTO,SEXO,GRUPO_SANGRE,CICLO FROM "+usr+".DONANTE ORDER BY 1";
 		
 		//ejecuto la sentencia
 		try{
@@ -105,7 +105,7 @@ import javafx.collections.ObservableList;
 
 		}catch(SQLException sqle){
 
-			System.out.println(sqle);
+			System.out.println("Problemas de Mostrar Tabla: " + sqle);
 			int pos = sqle.getMessage().indexOf(":");
 			String codeErrorSQL = sqle.getMessage().substring(0,pos);
 
@@ -165,7 +165,7 @@ import javafx.collections.ObservableList;
 					
 								}catch(SQLException sqle){
 					
-									System.out.println(sqle);
+									System.out.println("Problemas de Filtrar: " + sqle);
 									
 									int pos = sqle.getMessage().indexOf(":");
 									String codeErrorSQL = sqle.getMessage().substring(0,pos);
@@ -490,6 +490,261 @@ import javafx.collections.ObservableList;
     		
     	}
     	
+	public ObservableList<Donacion> MostrarDonaciones() throws SQLException{
+		
+		
+		
+		ObservableList<Donacion> listaPersonas2 =  FXCollections.observableArrayList();
+		
+		
+		Statement stm = conexion.createStatement();
+
+		// Preparo la sentencia SQL CrearTablaPersonas
+		String selectsql = "SELECT NUM_DONACION,FECHA,TIPO_DONACION,PULSO,TA_SIST,TA_DIAS,HB_CAP,HB_VEN,VOLUMEN FROM "+usr+".DONACION";
+		
+		//ejecuto la sentencia
+		try{
+			ResultSet resultado = stm.executeQuery(selectsql);
+
+			while(resultado.next()){
+				int N_donacion=resultado.getInt(1);
+				String Fecha=resultado.getString(2);
+				String Tipo=resultado.getString(3);
+				String Pulso=resultado.getString(4);
+				String TASIS=resultado.getString(5);
+				String TADIA=resultado.getString(6);
+				String HBCAP=resultado.getString(7);
+				String HABVEN=resultado.getString(8);
+				int Volumen=resultado.getInt(9);
+				
+				
+				Donacion donacion = new Donacion(N_donacion, Fecha, Tipo, Pulso, TASIS, TADIA, HBCAP, HABVEN, Volumen);
+				
+				listaPersonas2.add(donacion);
+			}
+
+		}catch(SQLException sqle){
+
+			System.out.println("Problemas de Mostrar Tabla: " + sqle);
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+			System.out.println(codeErrorSQL);
+		}
+		
+
+		return listaPersonas2;
+		
+		
+	}
+	
+	
+	
+	public ObservableList<Donacion> FiltrarDon(int numero,String tipo) throws SQLException{
+		
+		
+		
+		ObservableList<Donacion> listaDonacion2 =  FXCollections.observableArrayList();
+		
+		
+		if(numero!=0 && tipo.equals("-")){
+    		
+    		// Preparo la sentencia SQL CrearTablaPersonas
+			String selectsql = "SELECT NUM_DONACION,FECHA,TIPO_DONACION,PULSO,TA_SIST,TA_DIAS,HB_CAP,HB_VEN,VOLUMEN FROM "+usr+".DONACION WHERE NUM_DONACION=?";
+			PreparedStatement pstmt = conexion.prepareStatement(selectsql);
+			
+			pstmt.setInt(1, numero);
+			
+			//ejecuto la sentencia
+			try{
+				ResultSet resultado = pstmt.executeQuery();
+
+				while(resultado.next()){
+					
+					int N_donacion=resultado.getInt(1);
+					String Fecha=resultado.getString(2);
+					String Tipo=resultado.getString(3);
+					String Pulso=resultado.getString(4);
+					String TASIS=resultado.getString(5);
+					String TADIA=resultado.getString(6);
+					String HBCAP=resultado.getString(7);
+					String HABVEN=resultado.getString(8);
+					int Volumen=resultado.getInt(9);
+					
+					Donacion donacion = new Donacion(N_donacion, Fecha, Tipo, Pulso, TASIS, TADIA, HBCAP, HABVEN, Volumen);
+					listaDonacion2.add(donacion);
+				}
+
+			}catch(SQLException sqle){
+
+				System.out.println("Problemas de Filtrar: " + sqle);
+				
+				int pos = sqle.getMessage().indexOf(":");
+				String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+				System.out.println(codeErrorSQL);
+			}
+			
+	}else{
+		if(numero==0 && !tipo.equals("-")){
+			
+			// Preparo la sentencia SQL CrearTablaPersonas
+						String selectsql = "SELECT NUM_DONACION,FECHA,TIPO_DONACION,PULSO,TA_SIST,TA_DIAS,HB_CAP,HB_VEN,VOLUMEN FROM "+usr+".DONACION WHERE TIPO_DONACION=?";
+						PreparedStatement pstmt = conexion.prepareStatement(selectsql);
+						
+						pstmt.setString(1, tipo);
+						
+						//ejecuto la sentencia
+						try{
+							ResultSet resultado = pstmt.executeQuery();
+
+							while(resultado.next()){
+								
+								int N_donacion=resultado.getInt(1);
+								String Fecha=resultado.getString(2);
+								String Tipo=resultado.getString(3);
+								String Pulso=resultado.getString(4);
+								String TASIS=resultado.getString(5);
+								String TADIA=resultado.getString(6);
+								String HBCAP=resultado.getString(7);
+								String HABVEN=resultado.getString(8);
+								int Volumen=resultado.getInt(9);
+								
+								Donacion donacion = new Donacion(N_donacion, Fecha, Tipo, Pulso, TASIS, TADIA, HBCAP, HABVEN, Volumen);
+								listaDonacion2.add(donacion);
+							}
+
+						}catch(SQLException sqle){
+
+							System.out.println("Problemas de Filtrar: " + sqle);
+							
+							int pos = sqle.getMessage().indexOf(":");
+							String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+							System.out.println(codeErrorSQL);
+						}
+			
+		}else{
+			
+			if(numero!=0 && !tipo.equals("-")){
+				
+				// Preparo la sentencia SQL CrearTablaPersonas
+							String selectsql = "SELECT NUM_DONACION,FECHA,TIPO_DONACION,PULSO,TA_SIST,TA_DIAS,HB_CAP,HB_VEN,VOLUMEN FROM "+usr+".DONACION WHERE TIPO_DONACION=? AND NUM_DONACION=?";
+							PreparedStatement pstmt = conexion.prepareStatement(selectsql);
+							
+							pstmt.setString(1, tipo);
+							pstmt.setInt(2, numero);
+							
+							//ejecuto la sentencia
+							try{
+								ResultSet resultado = pstmt.executeQuery();
+
+								while(resultado.next()){
+									
+									int N_donacion=resultado.getInt(1);
+									String Fecha=resultado.getString(2);
+									String Tipo=resultado.getString(3);
+									String Pulso=resultado.getString(4);
+									String TASIS=resultado.getString(5);
+									String TADIA=resultado.getString(6);
+									String HBCAP=resultado.getString(7);
+									String HABVEN=resultado.getString(8);
+									int Volumen=resultado.getInt(9);
+									
+									Donacion donacion = new Donacion(N_donacion, Fecha, Tipo, Pulso, TASIS, TADIA, HBCAP, HABVEN, Volumen);
+									listaDonacion2.add(donacion);
+								}
+
+							}catch(SQLException sqle){
+
+								System.out.println("Problemas de Filtrar: " + sqle);
+								
+								int pos = sqle.getMessage().indexOf(":");
+								String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+								System.out.println(codeErrorSQL);
+							}
+				
+			}
+			
+			
+		}
+	}
+	
+		return listaDonacion2;
+	}
+	
+	
+	public ObservableList<Integer> NumerosDon() throws SQLException{
+		
+		ObservableList<Integer> NumerosDon = FXCollections.observableArrayList();;
+		Statement stm = conexion.createStatement();
+
+		// Preparo la sentencia SQL CrearTablaPersonas
+		String selectsql = "SELECT NUM_DONACION FROM "+usr+".DONACION";
+		
+		//ejecuto la sentencia
+		try{
+			ResultSet resultado = stm.executeQuery(selectsql);
+
+			while(resultado.next()){
+				int N_donacion=resultado.getInt(1);
+				
+
+				NumerosDon.add(N_donacion);
+			}
+
+		}catch(SQLException sqle){
+
+			System.out.println("Problemas de Cargar Números: " + sqle);
+			int pos = sqle.getMessage().indexOf(":");
+			String codeErrorSQL = sqle.getMessage().substring(0,pos);
+
+			System.out.println(codeErrorSQL);
+		}
+		
+		return NumerosDon;
+			
+			
+
+		
+		
+		
+	}
+	
+	
+	
+	public void EliminarDon(int numero) throws SQLException{
+		//Preparo la conexión para ejecutar sentencias SQL de tipo update
+		
+		
+			// Preparo la sentencia SQL
+			String insertsql = "DELETE FROM "+usr+".DONACION WHERE NUM_DONACION = ?";
+			
+			PreparedStatement pstmt = conexion.prepareStatement(insertsql);
+			
+			pstmt.setInt(1, numero);
+			//ejecuto la sentencia
+			try{
+				int resultado = pstmt.executeUpdate();
+
+				if(resultado !=1)
+					System.out.println("Error en la inserción " + resultado);
+			}catch(SQLException sqle){
+				
+				int pos = sqle.getMessage().indexOf(":");
+				String codeErrorSQL = sqle.getMessage().substring(0, pos);
+				
+				if(codeErrorSQL.equals("ORA-00001") )
+					System.out.println("la tabla PERSON2 ya estaba creada!!!");
+				else
+					System.out.println("Ha habido algún problema con  Oracle al hacer el borrado de tabla");
+			}
+	    	
+	    	
+	    	
+	}
+	
     public void Eliminar(int numero) throws SQLException{
     	
     	//Preparo la conexión para ejecutar sentencias SQL de tipo update
@@ -531,7 +786,7 @@ import javafx.collections.ObservableList;
 	
 		
 		// Preparo la sentencia SQL
-		String insertsql = "UPDATE "+usr+".DONANTE SET IDENTIFICACION =?, NOMBRE=?, APELLIDO1=?, APELLIDO2 =?, EMAIL =?, ESTADO=?, TELEFONO= ?, COD_POSTAL=?, FECHA_NACIMIENTO =?, FOTO=?, GRUPO_SANGRE=?, CICLO=? WHERE N_DONANTE=?";
+		String insertsql = "UPDATE "+usr+".DONANTE SET IDENTIFICACION =?, NOMBRE=?, APELLIDO1=?, APELLIDO2 =?, EMAIL =?, ESTADO=?, TELEFONO= ?, COD_POSTAL=?, FECHA_NACIMIENTO =?, FOTO=?, SEXO=?, GRUPO_SANGRE=?, CICLO=? WHERE N_DONANTE=?";
 		
 		PreparedStatement pstmt = conexion.prepareStatement(insertsql);
 		
@@ -545,8 +800,12 @@ import javafx.collections.ObservableList;
 		pstmt.setInt(7, telefono);
 		pstmt.setInt(8, cod_postal);
 		pstmt.setString(9, f_nacimiento);
-		FileInputStream convertir_imagen = new FileInputStream (imagen);
-		pstmt.setBlob(10, convertir_imagen, imagen.length());
+		if(imagen!=null){
+			FileInputStream convertir_imagen = new FileInputStream (imagen);
+			pstmt.setBlob(10, convertir_imagen, imagen.length());
+		}else{
+			pstmt.setBlob(10, null,0);
+		}
 		pstmt.setString(11, sexo);
 		pstmt.setString(12, g_sangre);
 		pstmt.setString(13, ciclo);
@@ -606,8 +865,13 @@ import javafx.collections.ObservableList;
 		pstmt.setInt(8, telefono);
 		pstmt.setInt(9, cod_postal);
 		pstmt.setString(10, f_nacimiento);
-		FileInputStream convertir_imagen = new FileInputStream (imagen);
-		pstmt.setBlob(11, convertir_imagen, imagen.length());
+		if(imagen!=null){
+			FileInputStream convertir_imagen = new FileInputStream (imagen);
+			pstmt.setBlob(11, convertir_imagen, imagen.length());
+		}else{
+			pstmt.setBlob(11, null,0);
+		}
+		
 		pstmt.setString(12, sexo);
 		pstmt.setString(13, g_sangre);
 		pstmt.setString(14, ciclo);
@@ -622,9 +886,10 @@ import javafx.collections.ObservableList;
 				System.out.println("Error en la inserción " + resultado);
 		
 	}catch(SQLException sqle){
-		System.out.println(sqle);
+		System.out.println("Problemas de Insertar Donante: " + sqle);
 		int pos = sqle.getMessage().indexOf(":");
 		String codeErrorSQL = sqle.getMessage().substring(0, pos);
+		
 		if(codeErrorSQL.equals("ORA-00001") )
 			System.out.println("Ese correo ya existe!!!");
 		
@@ -644,10 +909,7 @@ import javafx.collections.ObservableList;
     }
     	
     	
-    	
-    
-	
-	
+
     public byte[] LeerFoto(int numero) throws SQLException{
 
 		byte[] byteImage = null;
@@ -677,12 +939,12 @@ import javafx.collections.ObservableList;
 				System.out.println("no data found");
 
 		}catch(SQLException sqle){
-
+			System.out.println("Problemas de Seleccionar Foto: " + sqle);
 			int pos = sqle.getMessage().indexOf(":");
 			String codeErrorSQL = sqle.getMessage().substring(0,pos);
 
 
-				System.out.println( codeErrorSQL);
+				System.out.println(codeErrorSQL);
 		}
 
 		return byteImage;
@@ -693,54 +955,51 @@ import javafx.collections.ObservableList;
     public boolean ComprobarCorreo(String correo) throws SQLException{
 	
 	
-	ArrayList<String> listaPersonas =  new ArrayList<String>();
+	
 
 	//Preparo la conexión para ejecutar sentencias SQL de tipo update
 	Statement stm = conexion.createStatement();
-
+	ArrayList<String> listaPersonas =  new ArrayList<String>();
 	// Preparo la sentencia SQL CrearTablaPersonas
 	String selectsql = "SELECT EMAIL FROM "+usr+".DONANTE";
 	
 	//ejecuto la sentencia
 	try{
 		ResultSet resultado = stm.executeQuery(selectsql);
-			int contador=0;
+			
+			
+			
 		while(resultado.next()){
-			contador++;
-			String correoBBDD=resultado.getString(contador);
+			
+			String correoBBDD=resultado.getString(1);
 			
 			listaPersonas.add(correoBBDD);
+	
 		}
+		
+		
+		if(listaPersonas.contains(correo)){
+			
+			return true;
+		}
+			return false;
+		
 
+		
 	}catch(SQLException sqle){
 
-		System.out.println(sqle);
+		System.out.println("Problemas de Comprobar correo: " + sqle);
 		
 
 	}
 	
-	
-	if(listaPersonas.contains(correo)){
-		
-		return true;
-	}else{
+
 		return false;
-	}
-	
-	
-
-	
-	
-
-
-	
-	
-	
-	
 	
 }
 		
-
+    
+   
 	
     public boolean ComprobarDNI(String dni) throws SQLException{
     	
@@ -756,27 +1015,28 @@ import javafx.collections.ObservableList;
     	//ejecuto la sentencia
     	try{
     		ResultSet resultado = stm.executeQuery(selectsql);
-    			int contador=0;
+    			
     		while(resultado.next()){
-    			contador++;
-    			String dniBBDD=resultado.getString(contador);
+    		
+    			String dniBBDD=resultado.getString(1);
     			
     			listaPersonas.add(dniBBDD);
     		}
 
+    		if(listaPersonas.contains(dni)){
+        		
+        		return true;
+        	}
     	}catch(SQLException sqle){
 
-    		System.out.println(sqle);
+    		System.out.println("Problemas de Comprobar DNI: " + sqle);
     	
     	}
     	
     	
-    	if(listaPersonas.contains(dni)){
-    		
-    		return true;
-    	}else{
+    	
     		return false;
-    	}
+    	
     	
     	
 
@@ -803,31 +1063,36 @@ import javafx.collections.ObservableList;
 
     	// Preparo la sentencia SQL CrearTablaPersonas
     	String selectsql = "SELECT TELEFONO FROM "+usr+".DONANTE";
-    	
+    	int contador=0;
     	//ejecuto la sentencia
     	try{
     		ResultSet resultado = stm.executeQuery(selectsql);
-    			int contador=0;
-    		while(resultado.next()){
-    			contador++;
-    			int tlfnoBBDD=resultado.getInt(contador);
     			
+    		while(resultado.next()){
+    			
+    			int tlfnoBBDD=resultado.getInt(1);
     			listaPersonas.add(tlfnoBBDD);
+    			contador++;
+    			
+    			
     		}
+    		
+    		if(listaPersonas.contains(telfno)){
+        		
+        		return true;
+        	}
 
     	}catch(SQLException sqle){
 
-    		System.out.println(sqle);
+    		System.out.println("Problemas de Comprobar TLFN: " + sqle);
+    		System.out.println(contador);
     	
     	}
     	
+		return false;
     	
-    	if(listaPersonas.contains(telfno)){
-    		
-    		return true;
-    	}else{
-    		return false;
-    	}
+    	
+    	
     	
     	
 
@@ -856,28 +1121,34 @@ import javafx.collections.ObservableList;
 	
 	//ejecuto la sentencia
 	try{
+		
 		ResultSet resultado = stm.executeQuery(selectsql);
-			int contador=0;
+			
 		while(resultado.next()){
-			contador++;
-			int numeroBBDD=resultado.getInt(contador);
+			
+			int numeroBBDD=resultado.getInt(1);
 			
 			listaPersonas.add(numeroBBDD);
 		}
 
+		
+		if(listaPersonas.contains(numero)){
+			
+			return true;
+		}
+		
 	}catch(SQLException sqle){
 
-		System.out.println(sqle);
+		System.out.println("Problemas de Comprobar N_donante: " + sqle);
 		
 	}
 	
 	
-	if(listaPersonas.contains(numero)){
-		
-		return true;
-	}else{
-		return false;
-	}
+	
+	return false;
+	
+	
+	
 	
 	
 

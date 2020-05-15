@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -11,7 +10,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="647.0" prefWidth="707.0" style="-fx-background-color: #00FFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.ControladoraUIComprobacionDonacion">
    <children>
-      <CheckBox fx:id="CKN" layoutX="302.0" layoutY="48.0" mnemonicParsing="false" />
+      <Button fx:id="ComprobarN" layoutX="190.0" layoutY="69.0" mnemonicParsing="false" onAction="#ComprobarN" prefHeight="25.0" prefWidth="100.0" text="Validar Número" />
+      <TextField fx:id="CKN" editable="false" layoutX="300.0" layoutY="44.0" prefHeight="25.0" prefWidth="75.0" visible="false" />
       <Label layoutX="35.0" layoutY="43.0" prefHeight="27.0" prefWidth="100.0" text="Nº Donante">
          <font>
             <Font size="18.0" />
@@ -241,15 +241,20 @@
             </AnchorPane>
          </content>
       </ScrollPane>
-      <Button fx:id="ComprobarN" layoutX="190.0" layoutY="81.0" mnemonicParsing="false" onAction="#ComprobarN" text="Validar Número" />
       <AnchorPane layoutX="-2.0" layoutY="499.0" prefHeight="159.0" prefWidth="722.0">
          <children>
             <Button fx:id="Continuar" layoutX="475.0" layoutY="87.0" mnemonicParsing="false" onAction="#Continuar" prefHeight="46.0" prefWidth="92.0" text="Continuar" />
             <Button fx:id="Volver" layoutX="579.0" layoutY="87.0" mnemonicParsing="false" onAction="#closeWindow" prefHeight="46.0" prefWidth="92.0" text="Volver" />
             <Button fx:id="ComprobarF" layoutX="541.0" layoutY="11.0" mnemonicParsing="false" onAction="#ComprobarF" prefHeight="25.0" prefWidth="118.0" text="Validar Formulario" />
-            <CheckBox fx:id="CKF" layoutX="513.0" layoutY="15.0" mnemonicParsing="false" />
             <Button fx:id="Restablecer" layoutX="315.0" layoutY="13.0" mnemonicParsing="false" onAction="#Restablecer" prefHeight="46.0" prefWidth="92.0" text="Restablecer" />
+            <TextField fx:id="CKF" editable="false" layoutX="462.0" layoutY="9.0" prefHeight="25.0" prefWidth="75.0" visible="false" />
          </children>
       </AnchorPane>
+      <TextField fx:id="NumForm" layoutX="592.0" layoutY="44.0" prefHeight="25.0" prefWidth="50.0" />
+      <Label layoutX="463.0" layoutY="43.0" prefHeight="27.0" prefWidth="118.0" text="Nº Formulario">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
