@@ -1,17 +1,20 @@
 package Vista;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import Controlador.Main;
 import Modelo.ConexionBBDD;
+import Modelo.Formulario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -30,14 +33,16 @@ public class ControladoraUIComprobacionDonacion {
 	@FXML
 	   private Button Volver;
 	@FXML
-	   private TextField CKN;
-	@FXML
-	   private TextField CKF;
+	   private CheckBox CKN;
+	
 	@FXML
 	   private TextField NID_txt;
 	@FXML
 	   private TextField NumForm;
-
+	@FXML
+	   private CheckBox CKF;
+	
+	
 	
 	@FXML
 	   private ChoiceBox<String> cb1;
@@ -137,7 +142,7 @@ public class ControladoraUIComprobacionDonacion {
 	   
 	   public void initialize(){
 		   
-		   
+		   con = new ConexionBBDD();
 		   
 		   cb.add(cb1);	
 		   cb.add(cb2);
@@ -186,8 +191,32 @@ public class ControladoraUIComprobacionDonacion {
 	   
  
 	   
-	public void Continuar(){
-		this.MnPrincipal.mostrarMenuAltaDonacion();
+	public void Continuar() throws SQLException{
+		
+		
+		if(CKF.isSelected()==true && CKN.isSelected()==true && !NumForm.getText().equals("")){
+			
+			LocalDate ahora = LocalDate.now();
+			
+			
+			
+			Formulario form = new Formulario(Integer.parseInt(NumForm.getText()), cb1.getValue(), cb2.getValue(), cb3.getValue(), cb4.getValue(), cb5.getValue(), cb6.getValue(), cb7.getValue(), cb8.getValue(), cb9.getValue(), cb10.getValue(), cb11.getValue(), cb12.getValue(), cb13.getValue(), cb14.getValue(), cb15.getValue(), cb16.getValue(), cb17.getValue(), cb18.getValue(), cb19.getValue(),cb20.getValue(), cb21.getValue(), cb22.getValue(), cb23.getValue(), cb24.getValue(), cb25.getValue(), cb26.getValue(), cb27.getValue(), cb28.getValue(), cb29.getValue(), cb30.getValue(), cb31.getValue(), cb32.getValue(), cb33.getValue(), cb34.getValue(), cb35.getValue(), ahora.toString());
+			
+			con.GuardarFormulario(form,Integer.parseInt(NumForm.getText()));
+			
+			this.MnPrincipal.mostrarMenuAltaDonacion();
+			
+		}else{
+			 Alert alerta = new Alert ( AlertType.INFORMATION ); 
+	    	   	alerta . setTitle ( "Información" ); 
+	    	   	alerta . setHeaderText ("¡No es posible continuar!"); 
+	    	   	alerta . setContentText ( "Compruebe el formulario o el número del Donante" );  
+	    	   	alerta . showAndWait ();
+		}
+		
+		
+		
+		
 	}
 	public void Restablecer(){
 		
@@ -203,29 +232,55 @@ public class ControladoraUIComprobacionDonacion {
 	}
 	public void ComprobarN(ActionEvent event) throws SQLException {
 		
-		int numero = Integer.parseInt(NID_txt.getText());
 		
-		System.out.println(numero);
+		
+		int txt = Integer.parseInt(NID_txt.getText());
+		
+		
+		
+		try{
+			
+			if(NID_txt.getText().equals("") || con.ComprobarNumero(txt)==false){
+				CKN.setSelected(false);
+				 Alert alerta = new Alert ( AlertType.INFORMATION ); 
+		    	   	alerta . setTitle ( "Información" ); 
+		    	   	alerta . setHeaderText ("¡Ese número no existe o no puede donar!"); 
+		    	   	alerta . setContentText ( "Compruebe el estado del donante o el número introducido" );  
+		    	   	alerta . showAndWait ();
+			
+		
+			
+			}else{
+				
+				
+				if(con.ComprobarNumero(txt)==true){
+					CKN.setSelected(true);
+					 Alert alerta = new Alert ( AlertType.INFORMATION ); 
+			    	   	alerta . setTitle ( "Información" ); 
+			    	   	alerta . setHeaderText ("¡Válido!"); 
+			    	   	alerta . setContentText ( "Rellene el Formulario y valídelo" );  
+			    	   	alerta . showAndWait ();
+				
+				}
+				
+				
+				
+			}
+		}catch(SQLException e){
+			System.out.println(e);
+		}
+				
 
 		
 				
-				try{
-					if(con.ComprobarNumero(numero)==true){
-						CKN.setVisible(true);
-						CKN.setText("APTO");
+				
+					
+					
 						
-					}else{
-						
-						Alert alert = new Alert(AlertType.ERROR);
-						alert.setTitle("Error!!!");
-						alert.setHeaderText("¡Revisa el campo Número de Donante!");
-						alert.setContentText("Ese número no existe !");
-						alert.showAndWait();
-					}
-				}catch(SQLException e){
-					System.out.println(e);
-		
-				}
+			
+			
+				
+				
 				
 		
 		
@@ -241,10 +296,8 @@ public class ControladoraUIComprobacionDonacion {
 			 if(cb.get(i).getValue().equals("-")){
 				 contador++; 
 			 }
-			 
- 
+
 		 }
-		 
 		 //Exclusion temporal
 		 int contadorTemp=0;
 		 if(cb.get(0).getValue().equals("NO") || cb.get(2).getValue().equals("NO") ||
@@ -259,8 +312,6 @@ public class ControladoraUIComprobacionDonacion {
 		 
 		 
 		 //Exclusion definitiva
-		 
-		 
 		 int contadorDefinitiva=0;
 		 if(cb.get(32).getValue().equals("SI") || cb.get(33).getValue().equals("SI") ||
 				 
@@ -269,32 +320,25 @@ public class ControladoraUIComprobacionDonacion {
 				 contadorDefinitiva++;
 				  
 			 }
-		 
-		 
-		 
-		 
-		 
 		 if(contadorDefinitiva!=0){
 			 Alert alerta = new Alert ( AlertType.INFORMATION ); 
 	    	   	alerta . setTitle ( "Información" ); 
 	    	   	alerta . setHeaderText ("¡El resultado de su Formulario es Negativo!"); 
 	    	   	alerta . setContentText ( "Usted petenece a la categoría de excluídos de forma DEFINITIVA" );  
 	    	   	alerta . showAndWait ();
-	    	   	CKF.setVisible(true);
-	    	   	CKF.setText("EXCLUÍDO");
+	    	
+	    	   	CKF.setSelected(false);
 	    	   	
 		 }
-		 
 		 if(contadorTemp!=0 && contadorDefinitiva==0){ 
 			 Alert alerta = new Alert ( AlertType.INFORMATION ); 
 	    	   	alerta . setTitle ( "Información" ); 
 	    	   	alerta . setHeaderText ("¡El resultado de su Formulario es Negativo!"); 
 	    	   	alerta . setContentText ( "Usted petenece a la categoría de excluídos de forma TEMPORAL" );  
 	    	   	alerta . showAndWait ();
-	    	   	CKF.setVisible(true);
-	    	   	CKF.setText("EXCLUÍDO");
+	    	   
+	    	   	CKF.setSelected(false);
 		 }
-		 
 		 if(contador!=0){
 				Alert alerta = new Alert ( AlertType.INFORMATION ); 
 	    	   	alerta . setTitle ( "Información" ); 
@@ -310,21 +354,26 @@ public class ControladoraUIComprobacionDonacion {
 	    	   	alerta . setHeaderText ("¡Gracias por rellenar el Formulario!"); 
 	    	   	alerta . setContentText ( "Compruebe si ha validado su Nº de Donante y pulse Continuar" );  
 	    	   	alerta . showAndWait ();
-	    	   	CKF.setVisible(true);
-	    	   	CKF.setText("APTO");
+	    	 
+	    	   	CKF.setSelected(true);
 		 }
 		 
+
+		 
+		 
+		 
+		 
 		 
 		
-		
-		
-		
-		
-		
-		
-		
+		 
 		
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

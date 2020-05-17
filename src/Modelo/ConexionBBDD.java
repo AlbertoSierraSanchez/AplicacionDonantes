@@ -1110,7 +1110,7 @@ import javafx.collections.ObservableList;
 	
     public boolean ComprobarNumero(int numero) throws SQLException{
 	
-	
+	if(numero!=0){
 	ArrayList<Integer> listaPersonas =  new ArrayList<Integer>();
 
 	//Preparo la conexión para ejecutar sentencias SQL de tipo update
@@ -1131,11 +1131,8 @@ import javafx.collections.ObservableList;
 			listaPersonas.add(numeroBBDD);
 		}
 
+	
 		
-		if(listaPersonas.contains(numero)){
-			
-			return true;
-		}
 		
 	}catch(SQLException sqle){
 
@@ -1143,31 +1140,122 @@ import javafx.collections.ObservableList;
 		
 	}
 	
-	
-	
-	return false;
-	
-	
-	
-	
-	
+	if(listaPersonas.contains(numero)){
+		
+		return true;
+	}else{
+		return false;
+	}
+		
+		
 
 	
 	
+		}else{
+			return false;
+		}
 
-
-	
-	
-	
-	
-	
-}
-	
+    
 	}
 	
+    
+    public void GuardarFormulario(Formulario form,int numero) throws SQLException{
+    	
+    	
+	String insertsql = "INSERT INTO "+usr+".FORMULARIO VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		
+		PreparedStatement pstmt = conexion.prepareStatement(insertsql);
+		//Integer.parseInt(NumForm.getText()), cb1.getValue(), cb2.getValue(), cb3.getValue(), cb4.getValue(), cb5.getValue(), cb6.getValue(), cb7.getValue(), cb8.getValue(), cb9.getValue(), cb10.getValue(), cb11.getValue(), cb12.getValue(), cb13.getValue(), cb14.getValue(), cb15.getValue(), cb16.getValue(), cb17.getValue(), cb18.getValue(), cb19.getValue(),cb20.getValue(), cb21.getValue(), cb22.getValue(), cb23.getValue(), cb24.getValue(), cb25.getValue(), cb26.getValue(), cb27.getValue(), cb28.getValue(), cb29.getValue(), cb30.getValue(), cb31.getValue(), cb32.getValue(), cb33.getValue(), cb34.getValue(), cb35.getValue(), n.toString()
+		//seq_person.nextVal
+		pstmt.setInt(1, form.Cod_Form);
+		pstmt.setString(2, form.cb1);
+		pstmt.setString(3, form.cb2);
+		pstmt.setString(4, form.cb3);
+		pstmt.setString(5, form.cb4);
+		pstmt.setString(6, form.cb5);
+		pstmt.setString(7, form.cb6);
+		pstmt.setString(8, form.cb7);
+		pstmt.setString(9, form.cb8);
+		pstmt.setString(10, form.cb9);
+		pstmt.setString(11, form.cb10);
+		pstmt.setString(12, form.cb11);
+		pstmt.setString(13, form.cb12);
+		pstmt.setString(14, form.cb13);
+		pstmt.setString(15, form.cb14);
+		pstmt.setString(16, form.cb15);
+		pstmt.setString(17, form.cb16);
+		pstmt.setString(18, form.cb17);
+		pstmt.setString(19, form.cb18);
+		pstmt.setString(20, form.cb19);
+		pstmt.setString(21, form.cb20);
+		pstmt.setString(22, form.cb21);
+		pstmt.setString(23, form.cb22);
+		pstmt.setString(24, form.cb23);
+		pstmt.setString(25, form.cb24);
+		pstmt.setString(26,	form.cb25);
+		pstmt.setString(27, form.cb26);
+		pstmt.setString(28, form.cb27);
+		pstmt.setString(29, form.cb28);
+		pstmt.setString(30, form.cb29);
+		pstmt.setString(31, form.cb30);
+		pstmt.setString(32, form.cb31);
+		pstmt.setString(33, form.cb32);
+		pstmt.setString(34, form.cb33);
+		pstmt.setString(35, form.cb34);
+		pstmt.setString(36, form.cb35);
+		pstmt.setString(37, form.fecha);
+		
+		
+		
+		
+		
+		
+		
+		
+		String insertsql2 = "INSERT INTO "+usr+".RELLENA VALUES (?,?)";
+		
+		PreparedStatement pstmt2 = conexion.prepareStatement(insertsql);
+		
+		pstmt.setInt(1, form.Cod_Form);
+		pstmt.setInt(2, numero);
+		
+		
+		
+		//ejecuto la sentencia
+	try{
+		
+			int resultado = pstmt.executeUpdate();
+		
+			if(resultado != 1)
+				System.out.println("Error en la inserción " + resultado);
+			
+			
+			
+			int resultado2 = pstmt2.executeUpdate();
+			if(resultado2 != 1)
+				System.out.println("Error en la inserción " + resultado);
+			
+			
+		
+	}catch(SQLException sqle){
+		System.out.println("Problemas de Insertar Donante: " + sqle);
+		int pos = sqle.getMessage().indexOf(":");
+		String codeErrorSQL = sqle.getMessage().substring(0, pos);
+		
+		if(codeErrorSQL.equals("ORA-00001") )
+			System.out.println("Ese correo ya existe!!!");
+		
+		else
+			
+			System.out.println("Problemas de Inserción: " + sqle);
+	
+    }
+    
+    
 	
 	
-	
+    }
+	}
 	
 	
 	
